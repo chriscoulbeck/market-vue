@@ -1,95 +1,76 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
+    <h3>Apple</h3>
     <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          rel="noopener"
-          >router</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
+      <div class="category">
+        <div class="category__appleBox">
+
+        </div>
+        <div class="category__appleBox">
+
+        </div>
+        <div class="category__appleBox">
+
+        </div>
+        <div class="category__appleBox">
+
+        </div>
+      </div>
     </ul>
-    <h3>Essential Links</h3>
+    <h3>Samsung</h3>
     <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
+      <div class="category">
+        <div class="category__samsungBox">
+
+        </div>
+        <div class="category__samsungBox">
+
+        </div>
+        <div class="category__samsungBox">
+
+        </div>
+        <div class="category__samsungBox">
+
+        </div>
+      </div>
+
     </ul>
-    <h3>Ecosystem</h3>
+    <h3>PC</h3>
     <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
+      <div class="category">
+        <div class="category__pcBox">
+
+        </div>
+        <div class="category__pcBox">
+
+        </div>
+        <div class="category__pcBox">
+
+        </div>
+        <div class="category__pcBox">
+
+        </div>
+      </div>
+
+    </ul>
+    <h3>All listings</h3>
+    <ul>
+      <div class="category">
+        <div class="category__box">
+
+        </div>
+        <div class="category__box">
+
+        </div>
+        <div class="category__box">
+
+        </div>
+        <div class="category__box">
+
+        </div>
+      </div>
+
     </ul>
   </div>
 </template>
@@ -105,8 +86,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+h1 { 
+font-family: SeoulNamsan CL;
+font-style: normal;
+font-weight: normal;
+font-size: 52px;
+line-height: 52px;
+width: 70%;
+margin-left: 7%;
+}
 h3 {
-  margin: 40px 0 0;
+  margin-left: 7%;
+  text-align: left;
+  font-size: 24px;
 }
 ul {
   list-style-type: none;
@@ -118,5 +111,20 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.category {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+
+
+  &__box, &__appleBox, &__samsungBox, &__samsungBox  { 
+    margin: 10px;
+    width: 275px;
+    height: 376px;
+    background: #FFFFFF;
+    border: 1px solid #C4C4C4;
+  }
 }
 </style>
