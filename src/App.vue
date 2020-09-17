@@ -1,12 +1,27 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/"></router-link> |
+      <router-link to="/about"></router-link>
     </div>
-    <router-view />
+    <router-view/>
+    <my-footer></my-footer>
   </div>
 </template>
+
+<script>
+import MyFooter from "./components/Footer.vue";
+
+
+export default {
+  name: "App",
+
+  components: {
+    "my-footer": MyFooter,
+  },
+};
+</script>
+
 
 <style lang="scss">
 #app {
@@ -15,10 +30,14 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0;
+  padding: 0;
 }
 
 #nav {
-  padding: 30px;
+  height:60px;
+  width: 100%;
+  background-color: #455A6C;
 
   a {
     font-weight: bold;
