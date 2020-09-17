@@ -36,6 +36,7 @@
 </template>
 
 <script>
+
 export default {
   data: function() {
     return {
@@ -70,7 +71,7 @@ export default {
     },
     registerUser: function(user) {
       this.$http
-        .post(`${process.env.VUE_APP_API_URL}admin`, user)
+        .post(`${process.env.VUE_APP_API_URL}admin/register`, user)
         // .then takes two params, a success callback and an error callback
         .then(
           response => {
@@ -91,4 +92,5 @@ export default {
 </script>
 
 <style>
+
 </style>
