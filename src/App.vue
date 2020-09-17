@@ -1,12 +1,30 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/admin">Admin</router-link>
-    </div>
+    <h1 v-if="loggedIn">hello</h1>
+    <router-link to="/">Home</router-link>
+    <router-link to="/register">Register</router-link>
+    <router-link to="/login">Login</router-link>
     <router-view />
   </div>
 </template>
+
+<script>
+import EventBus from "./eventBus";
+export default {
+  data: function() {
+    return {
+      loggedIn: {
+        type: Boolean
+      }
+    }
+  },
+  created: function() {
+    EventBus.$on("loggedIn", function(data) {
+      this.title = data;
+    });
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
