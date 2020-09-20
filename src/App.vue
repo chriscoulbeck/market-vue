@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <h1 v-if="loggedIn">hello</h1>
-    <router-link to="/">Home</router-link>
-    <router-link to="/register">Register</router-link>
-    <router-link to="/login">Login</router-link>
+    <div id="nav">
+      <router-link class="router-link" to="/">Home</router-link>
+      <router-link v-if="!loggedIn" class="router-link" to="/register">Register</router-link>
+      <router-link v-if="!loggedIn" class="router-link" to="/login">Login</router-link>
+      <router-link v-if="loggedIn" class="router-link" to="/account">{{name}}</router-link>
+    </div>
     <router-view />
   </div>
 </template>
@@ -13,16 +15,17 @@ import EventBus from "./eventBus";
 export default {
   data: function() {
     return {
-      loggedIn: {
-        type: Boolean
-      }
-    }
+      loggedIn: false,
+      name: String
+    };
   },
-  created: function() {
-    EventBus.$on("loggedIn", function(data) {
-      this.title = data;
+  created() {
+    EventBus.$on("$loggedIn", (data) => {
+      console.log("Event recieved...");
+      this.loggedIn = data.log;
+      this.name = data.name;
     });
-  },
+  }
 };
 </script>
 
@@ -33,10 +36,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  padding-top: 50px;
+}
+
+.router-link {
+  margin: 0 10px;
 }
 
 #nav {
   padding: 30px;
+
 
   a {
     font-weight: bold;

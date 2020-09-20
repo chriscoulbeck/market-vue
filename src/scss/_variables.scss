@@ -1,3 +1,11 @@
+//Mixins
+
+@mixin flex-direction($direction){
+    display: flex;
+    flex-direction: $direction;
+}
+
+
 //Colors
     //Primary
     $primary: #455a6c;
