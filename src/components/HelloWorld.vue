@@ -1,88 +1,48 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>Welcome to the worlds most beautiful site</h1>
     <h3>Apple</h3>
     <ul>
-      <div class="category">
-        <div class="category__appleBox">
-
-        </div>
-        <div class="category__appleBox">
-
-        </div>
-        <div class="category__appleBox">
-
-        </div>
-        <div class="category__appleBox">
-
-        </div>
+      <div v-bind:to="'/'" class="category">
+        <apple-listing-card></apple-listing-card>
+        <apple-listing-card></apple-listing-card> 
+        <apple-listing-card></apple-listing-card>
+        <apple-listing-card></apple-listing-card>
       </div>
     </ul>
+
     <h3>Samsung</h3>
     <ul>
-      <div class="category">
-        <div class="category__samsungBox">
-
-        </div>
-        <div class="category__samsungBox">
-
-        </div>
-        <div class="category__samsungBox">
-
-        </div>
-        <div class="category__samsungBox">
-
-        </div>
+      <div v-bind:to="'/'" class="category">
+        <samsung-listing-card></samsung-listing-card>
+        <samsung-listing-card></samsung-listing-card>
+        <samsung-listing-card></samsung-listing-card>
+        <samsung-listing-card></samsung-listing-card>
       </div>
-
     </ul>
+
     <h3>PC</h3>
     <ul>
-      <div class="category">
-        <div class="category__pcBox">
-
-        </div>
-        <div class="category__pcBox">
-
-        </div>
-        <div class="category__pcBox">
-
-        </div>
-        <div class="category__pcBox">
-
-        </div>
+      <div v-bind:to="'/'" class="category">
+        <pc-listing-card></pc-listing-card>
+        <pc-listing-card></pc-listing-card>
+        <pc-listing-card></pc-listing-card>
+        <pc-listing-card></pc-listing-card>
       </div>
-
     </ul>
+    
     <h3>All listings</h3>
     <ul>
-      <div class="category">
-        <div class="category__box">
-
-        </div>
-        <div class="category__box">
-
-        </div>
-        <div class="category__box">
-
-        </div>
-        <div class="category__box">
-
-        </div>
+      <div v-bind:to="'/'" class="category">
+        <all-listing-card></all-listing-card>
+        <all-listing-card></all-listing-card>
+        <all-listing-card></all-listing-card>
+        <all-listing-card></all-listing-card>
       </div>
-
     </ul>
+
   </div>
 </template>
-
-<script>
-export default {
-  name: "HelloWorld",
-  props: {
-    msg: String
-  }
-};
-</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
@@ -117,14 +77,21 @@ a {
   display:flex;
   flex-direction: row;
   justify-content: center;
-
-
-  &__box, &__appleBox, &__samsungBox, &__samsungBox  { 
-    margin: 10px;
-    width: 275px;
-    height: 376px;
-    background: #FFFFFF;
-    border: 1px solid #C4C4C4;
-  }
 }
 </style>
+
+<script>
+import AppleListingCard from "./AppleListingCard.vue";
+import SamsungListingCard from "./AppleListingCard.vue";
+import PcListingCard from "./PcListingCard.vue";
+import AllListingCard from "./AllListingCard.vue";
+
+export default {
+    components: {
+    "apple-listing-card": AppleListingCard,
+    "samsung-listing-card": SamsungListingCard,
+    "pc-listing-card": PcListingCard,
+    "all-listing-card": AllListingCard,
+  },
+}
+</script>
