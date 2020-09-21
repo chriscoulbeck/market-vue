@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/"></router-link> |
-      <router-link to="/about"></router-link>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
     </div>
     <router-view/>
     <my-footer></my-footer>
@@ -13,11 +13,13 @@
 import MyFooter from "./components/Footer.vue";
 
 
+
 export default {
   name: "App",
 
   components: {
     "my-footer": MyFooter,
+
   },
 };
 </script>
