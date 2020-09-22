@@ -76,12 +76,10 @@ export default {
         .then(
           response => {
             if (response.body) {
-              localStorage.loggedIn = true;
+              localStorage.loggedIn = "yes";
               localStorage.user = user.email;
-              EventBus.$emit("$loggedIn", {
-                name: user.username,
-                log: true
-              });
+              localStorage.userId = user.username;
+              EventBus.$emit("$loggedIn");
               this.$router.push({ path: "/" });
             }
           },
