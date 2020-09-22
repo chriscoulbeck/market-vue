@@ -15,38 +15,80 @@
 
 <style lang="scss">
 .category {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
 
-
-&__allBox { 
+  &__allBox {
     margin: 10px;
-    width: 275px;
-    height: 376px;
-    background: #FFFFFF;
-    border: 1px solid #C4C4C4;
+    width: 20%;
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid #c4c4c4;
   }
   &__allImg {
     width: 100%;
     height: 197px;
   }
   &__allListing {
-    display:flex;
-    justify-content:space-evenly;
+    display: flex;
+    justify-content: space-evenly;
   }
   &__allTitle {
     padding: 0;
     margin: 0;
   }
-    &__allDescription {
+  &__allDescription {
     padding: 0;
     margin: 0;
   }
   &__allPrice {
-    display:flex;
-    flex-direction:row-reverse;
+    display: flex;
+    flex-direction: row-reverse;
     margin-right: 20px;
+  }
+  @media only screen and (max-width: 1266px) {
+    .category {
+      display: flex;
+      flex-direction: column;
+      &__allBox {
+        width: 250px;
+        height: 100%;
+      }
+    }
+  }
+  @media only screen and (max-width: 1060px) {
+    .category {
+      display: flex;
+      flex-direction: column;
+      &__allBox {
+        width: 250px;
+        height: 100%;
+      }
+    }
+  }
+  @media only screen and (max-width: 627px) {
+    .category {
+      &__allBox {
+        width: 250px;
+        height: 100%;
+      }
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    .category {
+      &__allBox {
+        width: 230px;
+      }
+    }
+  }
+  @media only screen and (max-width: 537px) {
+    .category {
+      &__allBox {
+        width: 210px;
+        height: 100%;
+      }
+    }
   }
 }
 </style>
@@ -54,13 +96,27 @@
 <script>
 export default {
     name: "AllListingCard",
+    // data: function () {
+    //   return {
+    //     project: {},
+    //   };
+    // },
+
+    // created: function () {
+    //   const id = this.$route.params.articleId;
+    //   this.$http
+    //     .get()
+    //     .then(function (data) {
+    //       this.article = data.body;
+    //     });
+    // },
       
     data: function() {
       return {
         // Dummy data
         project: {
           title: "Dummy Title",
-          description: "Dummy description",
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacus lacus, vulputate et facilisis at, suscipit id sem.",
           price: "$150",
           img: "https://picsum.photos/200/300",
           location: "Christchurch, NZ",
