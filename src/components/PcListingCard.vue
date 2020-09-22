@@ -20,7 +20,7 @@
   justify-content: center;
 
 
-  &__allBox, &__appleBox, &__samsungBox, &__pcBox  { 
+  &__pcBox { 
     margin: 10px;
     width: 275px;
     height: 376px;

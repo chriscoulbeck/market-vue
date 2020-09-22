@@ -20,16 +20,12 @@
   justify-content: center;
 
 
-  &__allbox, &__appleBox, &__samsungBox, &__pcBox  { 
+  &__samsungBox { 
     margin: 10px;
     width: 275px;
     height: 376px;
     background: #FFFFFF;
     border: 1px solid #C4C4C4;
-  }
-  &__appleImg {
-    width: 100%;
-    height: 197px;
   }
 }
 </style>

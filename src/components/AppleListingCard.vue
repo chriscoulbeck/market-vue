@@ -2,7 +2,7 @@
         <div class="category__appleBox">
           <img class="category__appleImg" v-bind:src="'https://picsum.photos/200/300'">
           <div class="category__appleListing">
-            <h6 class="category__appleLocation">{{ project.location }}</h6>
+            <h6  class="category__appleLocation">{{ project.location }}</h6>
             <h6 class="category__appleDate">{{ project.date }}</h6>
           </div>
           <div class="category__appleDetails">
@@ -20,10 +20,10 @@
   justify-content: center;
 
 
-  &__allbox, &__appleBox, &__samsungBox, &__pcBox  { 
+  &__appleBox { 
     margin: 10px;
     width: 275px;
-    height: 376px;
+    height: 420px;
     background: #FFFFFF;
     border: 1px solid #C4C4C4;
   }
@@ -48,7 +48,32 @@
     flex-direction:row-reverse;
     margin-right: 20px;
   }
+@media only screen and (max-width: 627px) {
+  .category {
+    &__appleBox {
+      width: 250px;
+    }
+  }
 }
+@media only screen and (max-width: 576px) {
+  .category {
+    &__appleBox {
+      width: 230px;
+    }
+  }
+}
+@media only screen and (max-width: 537px) {
+  .category {
+    &__appleBox {
+      width: 210px;
+      height: 450px;
+    }
+  }
+}
+}
+
+
+
 </style>
 
 <script>
@@ -60,7 +85,7 @@ export default {
         // Dummy data
         project: {
           title: "Dummy Title",
-          description: "Dummy description",
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacus lacus, vulputate et facilisis at, suscipit id sem.",
           price: "$150",
           img: "https://picsum.photos/200/300",
           location: "Christchurch, NZ",
