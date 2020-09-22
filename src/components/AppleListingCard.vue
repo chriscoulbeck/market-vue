@@ -22,8 +22,8 @@
 
   &__appleBox { 
     margin: 10px;
-    width: 275px;
-    height: 420px;
+    width: 20%;
+    height: 100%;
     background: #FFFFFF;
     border: 1px solid #C4C4C4;
   }
@@ -48,10 +48,31 @@
     flex-direction:row-reverse;
     margin-right: 20px;
   }
+  @media only screen and (max-width: 1266px) {
+  .category {
+  display:flex;
+  flex-direction: column;
+    &__appleBox {
+      width: 250px;
+      height: 100%;
+    }
+  }
+}
+  @media only screen and (max-width: 1060px) {
+  .category {
+  display:flex;
+  flex-direction: column;
+    &__appleBox {
+      width: 250px;
+      height: 100%;
+    }
+  }
+}
 @media only screen and (max-width: 627px) {
   .category {
     &__appleBox {
       width: 250px;
+      height: 100%;
     }
   }
 }
@@ -66,7 +87,7 @@
   .category {
     &__appleBox {
       width: 210px;
-      height: 450px;
+      height: 100%;
     }
   }
 }
