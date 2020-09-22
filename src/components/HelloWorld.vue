@@ -53,11 +53,10 @@ font-style: normal;
 font-weight: normal;
 font-size: 52px;
 line-height: 52px;
-width: 70%;
-margin-left: 7%;
 }
 h3 {
-  margin-left: 7%;
+  // margin-left: 7%;
+  padding-left: 10%;
   text-align: left;
   font-size: 24px;
 }
@@ -74,9 +73,48 @@ a {
 }
 
 .category {
+  margin-left: 5%;
+  margin-right: 5%;
   display:flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 1150px) {
+  .category {
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  h3 {
+  margin-left: 15%;
+  }
+}
+
+@media only screen and (max-width: 775px) {
+  .category {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0;
+    
+  }
+  h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 30px;
+    padding: 30px;
+  }
+    h3 {
+    text-transform: uppercase;
+    display: inline;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid;
+    width: 50%;
+  }
 }
 </style>
 
@@ -85,6 +123,7 @@ import AppleListingCard from "./AppleListingCard.vue";
 import SamsungListingCard from "./AppleListingCard.vue";
 import PcListingCard from "./PcListingCard.vue";
 import AllListingCard from "./AllListingCard.vue";
+
 
 export default {
     components: {
