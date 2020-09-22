@@ -3,8 +3,9 @@
     <div id="nav">
       <router-link class="router-link" to="/">Home</router-link>
       <router-link v-if="!loggedIn" class="router-link" to="/register">Register</router-link>
+      <router-link v-if="loggedIn" class="router-link" to="/account">{{id}}</router-link>
       <router-link v-if="!loggedIn" class="router-link" to="/login">Login</router-link>
-      <router-link v-if="loggedIn" class="router-link" to="/account">{{name}}</router-link>
+      <a v-if="loggedIn" v-on:click="logOutUser" href="#">Logout</a>
     </div>
     <router-view />
   </div>
@@ -15,16 +16,26 @@ import EventBus from "./eventBus";
 export default {
   data: function() {
     return {
-      loggedIn: false,
-      name: String
+      loggedIn: "",
+      id: ""
     };
   },
+  methods: {
+    logOutUser: function() {
+      localStorage.loggedIn = "";
+      //Local Storage can only set strings
+      this.loggedIn = localStorage.loggedIn;
+      this.$router.push({ path: "/" });
+    }
+  },
   created() {
-    EventBus.$on("$loggedIn", (data) => {
-      console.log("Event recieved...");
-      this.loggedIn = data.log;
-      this.name = data.name;
-    });
+    this.loggedIn = localStorage.loggedIn;
+    this.id = localStorage.userId;
+    EventBus.$on("$loggedIn", () => {
+      localStorage.loggedIn = "yes";
+      this.loggedIn = localStorage.loggedIn;
+      this.id = localStorage.userId;
+    })
   }
 };
 </script>

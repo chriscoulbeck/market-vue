@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import EventBus from "../eventBus";
 // the event bus is imported here so that this file knows about it and can listen to or emit events on the bus
 // import EventBus from "../../eventBus.js";
 export default {
@@ -54,13 +55,13 @@ export default {
     // variables in localStorage are set that store the user id, email, and the current state of being logged in
     loginUser(user) {
       this.$http.post(`${process.env.VUE_APP_API_URL}users/login`, user).then(
-        function(response) {
-          if (response.body.email) {
+        function(res) {
+          if (res.body.email) {
             localStorage.loggedIn = "yes";
-            localStorage.userEmail = user.email;
-            localStorage.userId = response.body._id;
+            localStorage.user = user.email;
             // if the user is returned due to a valid email, and once the variables are saved in local storage, the eventbus is instructed to emit an event, which any other components can listen for and react too
             // EventBus.$emit("$loggedIn");
+            EventBus.$emit("$loggedIn");
             this.$router.push({ path: "/" });
           }
         },
