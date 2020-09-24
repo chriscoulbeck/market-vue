@@ -11,8 +11,12 @@
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
+    "hooper": "^0.3.4",
+    "swiper": "^6.2.0",
     "vue": "^2.6.11",
+    "vue-awesome-swiper": "^4.1.1",
     "vue-horizontal-list": "^1.0.12",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {

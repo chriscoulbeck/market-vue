@@ -1,3 +1,5 @@
+
+
 <template>
   <div id="app">
     <div id="nav">
@@ -7,6 +9,9 @@
     <router-view/>
     <my-footer></my-footer>
   </div>
+
+  
+
 </template>
 
 <script>
@@ -14,12 +19,13 @@ import MyFooter from "./components/Footer.vue";
 
 
 
+
 export default {
   name: "App",
 
   components: {
-    "my-footer": MyFooter,
 
+    "my-footer": MyFooter,
   },
 };
 </script>
