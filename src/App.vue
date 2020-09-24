@@ -5,6 +5,7 @@
       <router-link v-if="!loggedIn" class="router-link" to="/register">Register</router-link>
       <router-link v-if="loggedIn" class="router-link" to="/account">{{id}}</router-link>
       <router-link v-if="!loggedIn" class="router-link" to="/login">Login</router-link>
+      <router-link class="router-link" to="/post">Post Listing</router-link>
       <a v-if="loggedIn" v-on:click="logOutUser" href="#">Logout</a>
     </div>
     <router-view />
