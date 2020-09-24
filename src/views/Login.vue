@@ -5,9 +5,6 @@
     <form v-on:submit.prevent="checkForm">
       <!-- error display, this iterates through all the errors present in the error display and shows them. If there are none it doesn't render at all. -->
       <div v-if="errors.length">
-        <p>
-          <b>Please correct the following</b>
-        </p>
         <ul v-for="(error, index) in errors" v-bind:key="index">
           <li>{{error}}</li>
         </ul>
@@ -20,6 +17,7 @@
       <div>
         <input type="submit" value="Log In" />
       </div>
+      <router-link class="router-link" to="/register">Register</router-link>
     </form>
   </div>
 </template>
