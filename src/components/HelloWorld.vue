@@ -1,58 +1,25 @@
 <template>
   <div class="hello">
     <h1>Welcome to the worlds most beautiful site</h1>
-    <h3>Apple</h3>
-    <ul>
-      <div v-bind:to="'/'" class="category">
-        <apple-listing-card></apple-listing-card>
-        <apple-listing-card></apple-listing-card> 
-        <apple-listing-card></apple-listing-card>
-        <apple-listing-card></apple-listing-card>
-      </div>
-    </ul>
-
-    <h3>Samsung</h3>
-    <ul>
-      <div v-bind:to="'/'" class="category">
-        <samsung-listing-card></samsung-listing-card>
-        <samsung-listing-card></samsung-listing-card>
-        <samsung-listing-card></samsung-listing-card>
-        <samsung-listing-card></samsung-listing-card>
-      </div>
-    </ul>
-
-    <h3>PC</h3>
-    <ul>
-      <div v-bind:to="'/'" class="category">
-        <pc-listing-card></pc-listing-card>
-        <pc-listing-card></pc-listing-card>
-        <pc-listing-card></pc-listing-card>
-        <pc-listing-card></pc-listing-card>
-      </div>
-    </ul>
-    
     <h3>All listings</h3>
     <ul>
-      <div v-bind:to="'/'" class="category">
-        <all-listing-card></all-listing-card>
-        <all-listing-card></all-listing-card>
-        <all-listing-card></all-listing-card>
-        <all-listing-card></all-listing-card>
+      <div class="category">
+        <all-listing-card v-for="(product, index) in products" v-bind:key="index" />
       </div>
     </ul>
-
+    <button class="allButton">SEE MORE</button>
   </div>
 </template>
 
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
-h1 { 
-font-family: SeoulNamsan CL;
-font-style: normal;
-font-weight: normal;
-font-size: 52px;
-line-height: 52px;
+h1 {
+  font-family: SeoulNamsan CL;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 52px;
+  line-height: 52px;
 }
 h3 {
   // margin-left: 7%;
@@ -75,10 +42,16 @@ a {
 .category {
   margin-left: 5%;
   margin-right: 5%;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+}
+button {
+  color: #f2f2f2;
+  background-color: #333;
+  padding: 15px;
+  border: none;
 }
 
 @media only screen and (max-width: 1150px) {
@@ -88,7 +61,7 @@ a {
     margin-right: 10%;
   }
   h3 {
-  margin-left: 15%;
+    margin-left: 15%;
   }
 }
 
@@ -98,7 +71,14 @@ a {
     flex-direction: row;
     width: 100%;
     margin: 0;
-    
+  }
+
+  button {
+    color: #f2f2f2;
+    background-color: #333;
+    padding: 15px;
+    margin-bottom: 60px;
+    border: none;
   }
   h1 {
     text-align: center;
@@ -106,31 +86,48 @@ a {
     font-size: 30px;
     padding: 30px;
   }
-    h3 {
+  h3 {
     text-transform: uppercase;
     display: inline;
     text-align: center;
     margin: 0;
     padding: 0;
     border-bottom: 1px solid;
-    width: 50%;
+    // width: 50%;
   }
 }
 </style>
 
 <script>
-import AppleListingCard from "./AppleListingCard.vue";
-import SamsungListingCard from "./AppleListingCard.vue";
-import PcListingCard from "./PcListingCard.vue";
 import AllListingCard from "./AllListingCard.vue";
 
-
 export default {
-    components: {
-    "apple-listing-card": AppleListingCard,
-    "samsung-listing-card": SamsungListingCard,
-    "pc-listing-card": PcListingCard,
-    "all-listing-card": AllListingCard,
+  components: {
+    // "apple-listing-card": AppleListingCard,
+    // "samsung-listing-card": SamsungListingCard,
+    // "pc-listing-card": PcListingCard,
+    "all-listing-card": AllListingCard
   },
-}
+  
+  data: function() {
+    return {
+      products: [],
+    };
+  },
+
+  methods: {
+    getProducts: function() {
+      this.$http
+        .get(`${process.env.VUE_APP_API_URL}products`)
+        .then(function(data) {
+          this.products = data.body;
+        });
+    }
+  },
+  created: function() {
+    this.getProducts();
+    console.log(this.products);
+  }
+};
+
 </script>
