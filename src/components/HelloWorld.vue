@@ -1,112 +1,31 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
+    <h1>Welcome to the worlds most beautiful site</h1>
+    <h3>All listings</h3>
     <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          rel="noopener"
-          >router</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
+      <div class="category">
+        <all-listing-card v-for="(product, index) in products" v-bind:key="index" />
+      </div>
     </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
-    </ul>
+    <button class="allButton">SEE MORE</button>
   </div>
 </template>
 
-<script>
-export default {
-  name: "HelloWorld",
-  props: {
-    msg: String
-  }
-};
-</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+h1 {
+  font-family: SeoulNamsan CL;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 52px;
+  line-height: 52px;
+}
 h3 {
-  margin: 40px 0 0;
+  // margin-left: 7%;
+  padding-left: 10%;
+  text-align: left;
+  font-size: 24px;
 }
 ul {
   list-style-type: none;
@@ -119,4 +38,96 @@ li {
 a {
   color: #42b983;
 }
+
+.category {
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+button {
+  color: #f2f2f2;
+  background-color: #333;
+  padding: 15px;
+  border: none;
+}
+
+@media only screen and (max-width: 1150px) {
+  .category {
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  h3 {
+    margin-left: 15%;
+  }
+}
+
+@media only screen and (max-width: 775px) {
+  .category {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0;
+  }
+
+  button {
+    color: #f2f2f2;
+    background-color: #333;
+    padding: 15px;
+    margin-bottom: 60px;
+    border: none;
+  }
+  h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 30px;
+    padding: 30px;
+  }
+  h3 {
+    text-transform: uppercase;
+    display: inline;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid;
+    // width: 50%;
+  }
+}
 </style>
+
+<script>
+import AllListingCard from "./AllListingCard.vue";
+
+export default {
+  components: {
+    // "apple-listing-card": AppleListingCard,
+    // "samsung-listing-card": SamsungListingCard,
+    // "pc-listing-card": PcListingCard,
+    "all-listing-card": AllListingCard
+  },
+  
+  data: function() {
+    return {
+      products: [],
+    };
+  },
+
+  methods: {
+    getProducts: function() {
+      this.$http
+        .get(`${process.env.VUE_APP_API_URL}products`)
+        .then(function(data) {
+          this.products = data.body;
+        });
+    }
+  },
+  created: function() {
+    this.getProducts();
+    console.log(this.products);
+  }
+};
+
+</script>
