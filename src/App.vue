@@ -1,10 +1,12 @@
-
-
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link class="router-link" to="/">Home</router-link>
+      <router-link v-if="!loggedIn" class="router-link" to="/register">Register</router-link>
+      <router-link v-if="loggedIn" class="router-link" to="/account">{{id}}</router-link>
+      <router-link v-if="!loggedIn" class="router-link" to="/login">Login</router-link>
+      <router-link class="router-link" to="/post">Post Listing</router-link>
+      <a v-if="loggedIn" v-on:click="logOutUser" href="#">Logout</a>
     </div>
     <router-view/>
     <my-footer></my-footer>
@@ -15,21 +17,33 @@
 </template>
 
 <script>
-import MyFooter from "./components/Footer.vue";
-
-
-
-
+import EventBus from "./eventBus";
 export default {
-  name: "App",
-
-  components: {
-
-    "my-footer": MyFooter,
+  data: function() {
+    return {
+      loggedIn: "",
+      id: ""
+    };
   },
+  methods: {
+    logOutUser: function() {
+      localStorage.loggedIn = "";
+      //Local Storage can only set strings
+      this.loggedIn = localStorage.loggedIn;
+      this.$router.push({ path: "/" });
+    }
+  },
+  created() {
+    this.loggedIn = localStorage.loggedIn;
+    this.id = localStorage.userId;
+    EventBus.$on("$loggedIn", () => {
+      localStorage.loggedIn = "yes";
+      this.loggedIn = localStorage.loggedIn;
+      this.id = localStorage.userId;
+    })
+  }
 };
 </script>
-
 
 <style lang="scss">
 #app {
@@ -38,14 +52,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 0;
-  padding: 0;
+  padding-top: 50px;
+}
+
+.router-link {
+  margin: 0 10px;
 }
 
 #nav {
   height:60px;
   width: 100%;
   background-color: #455A6C;
+
 
   a {
     font-weight: bold;
