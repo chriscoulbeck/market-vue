@@ -8,8 +8,12 @@
       <router-link class="router-link" to="/post">Post Listing</router-link>
       <a v-if="loggedIn" v-on:click="logOutUser" href="#">Logout</a>
     </div>
-    <router-view />
+    <router-view/>
+    <my-footer></my-footer>
   </div>
+
+  
+
 </template>
 
 <script>
@@ -56,7 +60,9 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  height:60px;
+  width: 100%;
+  background-color: #455A6C;
 
 
   a {
