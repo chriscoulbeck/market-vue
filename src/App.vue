@@ -8,8 +8,12 @@
       <router-link class="router-link" to="/post">Post Listing</router-link>
       <a v-if="loggedIn" v-on:click="logOutUser" href="#">Logout</a>
     </div>
-    <router-view />
+    <router-view/>
+    <!-- <my-footer></my-footer> -->
   </div>
+
+  
+
 </template>
 
 <script>
@@ -48,20 +52,25 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  padding-top: 50px;
 }
 
 .router-link {
   margin: 0 10px;
+  color: #fff;
 }
 
 #nav {
-  padding: 30px;
+  height:60px;
+  width: 100%;
+  background-color: #455A6C;
+  display: flex;
+  align-items: center;
+  margin: 0 0 20px 0;
 
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    text-decoration: none;
 
     &.router-link-exact-active {
       color: #42b983;
