@@ -6,7 +6,7 @@
             <h6 class="category__allDate">{{ product.date }}</h6>
           </div>
           <div class="category__allDetails">
-            <h2 class="category__allTitle">{{ product.title }}</h2>
+            <router-link to="/product-detail" class="router-link">{{ product.title }}</router-link>
             <p class="category__allDescription">{{ product.description }}</p>
           </div>
           <h2 class="category__allPrice">{{ product.price }}</h2>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-    name: "AllListingCard",
+    name: "productCard",
     props: ["product"],
     
 }

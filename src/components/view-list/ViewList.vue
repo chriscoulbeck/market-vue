@@ -4,7 +4,7 @@
     <h3>All listings</h3>
     <ul>
       <div class="category">
-        <all-listing-card v-for="(product, index) in products" v-bind:key="index" :product="product" />
+        <productCard v-for="(product, index) in products" v-bind:key="index" :product="product" />
       </div>
     </ul>
     <!-- <button class="allButton">SEE MORE</button> -->
@@ -12,14 +12,14 @@
 </template>
 
 <script>
-import AllListingCard from "./AllListingCard.vue";
+import ProductCard from "../product-card/ProductCard";
 
 export default {
   components: {
     // "apple-listing-card": AppleListingCard,
     // "samsung-listing-card": SamsungListingCard,
     // "pc-listing-card": PcListingCard,
-    "all-listing-card": AllListingCard
+    "productCard": ProductCard
   },
   
   data: function() {

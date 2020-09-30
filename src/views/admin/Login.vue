@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import EventBus from "../eventBus";
+import EventBus from "../../eventBus";
 // the event bus is imported here so that this file knows about it and can listen to or emit events on the bus
 // import EventBus from "../../eventBus.js";
 export default {
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../scss/variables";
+@import "../../scss/variables";
 
 * {
   margin: 0;

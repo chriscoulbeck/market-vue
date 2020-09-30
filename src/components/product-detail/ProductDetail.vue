@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="backtosearch">
-      <h4>Back to search results</h4>
+      <router-link to="/" class="router-link">Back to search results</router-link>
     </div>
     <div class="container">
       <div class="product-listing">
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  name: "Product",
+  name: "ProductDetail",
 
   data: function() {
     return {
