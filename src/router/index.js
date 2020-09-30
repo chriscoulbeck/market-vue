@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-
+import Product from "../components/product/Product.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -17,6 +17,12 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    name:"Product",
+    path:"/product",
+    component:Product
       import(/* webpackChunkName: "about" */ "../views/Register.vue")
   },
   {
@@ -49,6 +55,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Post.vue")
   }
+
 ];
 
 const router = new VueRouter({
