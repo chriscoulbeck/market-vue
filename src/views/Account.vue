@@ -2,7 +2,7 @@
   <div>
     <h2>My Items</h2>
     <ul>
-      <div v-for="(product, index) in products" v-bind:key="index">
+      <div class="product" v-for="(product, index) in products" v-bind:key="index">
         <li>{{product.title}}</li>
         <router-link
           class="router-link"
@@ -40,5 +40,8 @@ export default {
 <style lang="scss">
 li {
   list-style: none;
+}
+.product {
+  display: flex;
 }
 </style>

@@ -4,7 +4,7 @@
     <h3>All listings</h3>
     <ul>
       <div class="category">
-        <all-listing-card v-for="(product, index) in products" v-bind:key="index" />
+        <all-listing-card v-for="(product, index) in products" v-bind:key="index" :product="product" />
       </div>
     </ul>
     <!-- <button class="allButton">SEE MORE</button> -->
@@ -39,7 +39,6 @@ export default {
   },
   created: function() {
     this.getProducts();
-    console.log(this.products);
   }
 };
 

@@ -13,6 +13,14 @@
         </div>
 </template>
 
+<script>
+export default {
+    name: "AllListingCard",
+    props: ["product"],
+    
+}
+</script>
+
 <style lang="scss">
 .category {
   display: flex;
@@ -92,11 +100,3 @@
   }
 }
 </style>
-
-<script>
-export default {
-    name: "AllListingCard",
-    props: ["product"],
-    
-}
-</script>

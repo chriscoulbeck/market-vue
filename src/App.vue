@@ -56,7 +56,7 @@ export default {
 
 .router-link {
   margin: 0 10px;
-  color: #fff;
+  color: red;
 }
 
 #nav {
