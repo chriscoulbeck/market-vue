@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form v-on:submit.prevent="checkForm">
+      <form v-on:submit.prevent="checkForm">
       <div>
         <label for="title">Title</label>
         <input v-model="product.title" type="text" name="title" id="title" />

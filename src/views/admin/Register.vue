@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import EventBus from "../eventBus";
+import EventBus from "../../eventBus";
 export default {
   data: function() {
     return {
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../scss/variables";
+@import "../../scss/variables";
 
 * {
   margin: 0;

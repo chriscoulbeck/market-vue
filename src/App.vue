@@ -11,9 +11,6 @@
     <router-view/>
     <!-- <my-footer></my-footer> -->
   </div>
-
-  
-
 </template>
 
 <script>
