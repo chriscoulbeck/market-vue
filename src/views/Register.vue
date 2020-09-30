@@ -71,7 +71,7 @@ export default {
     },
     registerUser: function(user) {
       this.$http
-        .post(`${process.env.VUE_APP_API_URL}users/`, user)
+        .post(`${process.env.VUE_APP_API_URL}users`, user)
         // .then takes two params, a success callback and an error callback
         .then(
           response => {
