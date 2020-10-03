@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="backtosearch">
-      <router-link to="/" class="router-link">Back to search results</router-link>
+      <router-link to="/" class="router-link"
+        >Back to search results</router-link
+      >
     </div>
     <div class="container">
       <div class="product-listing">
@@ -45,51 +47,117 @@
       <h2 class="line__lineorange"><span></span></h2>
     </div>
     <div class="items">
-      <div class="similar-items">
-        <h2>Similar Items</h2>
+      <div class="comments">
+        <h2>Comments</h2>
+        <comment v-for="(comment, index) in comments" v-bind:key="index" :comment="comment"/>
+        <router-link to="/login"></router-link>
+        <div v-if="!loggedIn">
+          You need to
+          <router-link v-if="!loggedIn" class="router-link" to="/login"
+            >Login</router-link
+          >
+        </div>
+        <form
+          v-if="loggedIn"
+          v-on:submit.prevent="checkForm"
+          class="comments__input"
+        >
+          <div v-if="errors.length">
+            <ul v-for="(error, index) in errors" v-bind:key="index">
+              <li>{{ error }}</li>
+            </ul>
+          </div>
+          <input
+            v-model="comment.body"
+            type="text"
+            name="comment"
+            id="comment"
+          />
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
+import Comment from "../comment/Comment";
 export default {
   name: "ProductDetail",
+  components: {
+    comment: Comment,
+  },
 
   data: function() {
     return {
-      product: {
-        title: null,
-        price: null,
-        listed: null,
-        username: null,
-        details: null,
-        description: null
-      },
-      image: []
+      errors: [],
+      loggedIn: "",
+      product: {},
+      image: [],
+      comments: [],
+      comment: {
+        body: "",
+        product: null,
+        user: null
+      }
     };
+  },
+  methods: {
+    checkForm: function(event) {
+      event.preventDefault();
+      this.errors = [];
+      if (!this.comment.body) {
+        this.errors.push("Comment required");
+      }
+      // if no errors then log the user in
+      if (!this.errors.length) {
+        this.postComment(this.comment);
+      }
+    },
+    postComment: function(comment) {
+      const id = this.$route.params.productId;
+      this.comment.product = id;
+      this.comment.user = localStorage.username;
+      this.$http
+        .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
+        .then(
+          (response) => {
+            if (response.body) {
+              this.getProductById();
+              this.getComments();
+            }
+          },
+          (response) => {
+            this.errors.push(response.body.message);
+          }
+        );
+    },
+    getProductById: function() {
+      const id = this.$route.params.productId;
+      this.$http
+        .get(`${process.env.VUE_APP_API_URL}products/${id}`)
+        .then(function(data) {
+          this.product = data.body;
+        });
+    },
+    getComments: function() {
+      const id = this.$route.params.productId;
+      this.$http.get(`${process.env.VUE_APP_API_URL}products/${id}/comments`).then(function(data) {
+        this.comments = data.body;
+      })
+    }
   },
 
   created: function() {
     // const id = this.$route.params.articleId;
-    this.product = {
-      title: "",
-      price: "",
-      listed: "",
-      username: "",
-      details:"",
-      description:""
-    };
-    // this.$http
-    // .get(`${process.env.MONGODB_URI}product/${id}`)
-    // .then(function(data) {
-    //     this.product = data.body
-    // })
-  }
+    (this.product = {}),
+      (this.loggedIn = localStorage.loggedIn),
+      this.getProductById();
+      this.getComments();
+  },
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 @import "./scss/main.scss";
 </style>

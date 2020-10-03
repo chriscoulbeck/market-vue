@@ -6,7 +6,7 @@
             <h6 class="category__allDate">{{ product.date }}</h6>
           </div>
           <div class="category__allDetails">
-            <router-link to="/product-detail" class="router-link">{{ product.title }}</router-link>
+            <router-link v-bind:to="{name: 'product-details', params: {productId: product._id}}" class="router-link">{{ product.title }}</router-link>
             <p class="category__allDescription">{{ product.description }}</p>
           </div>
           <h2 class="category__allPrice">{{ product.price }}</h2>
