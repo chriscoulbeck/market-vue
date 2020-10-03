@@ -32,7 +32,7 @@ export default {
   },
   created() {
     this.loggedIn = localStorage.loggedIn;
-    this.id = localStorage.userId;
+    this.id = localStorage.username;
     EventBus.$on("$loggedIn", () => {
       localStorage.loggedIn = "yes";
       this.loggedIn = localStorage.loggedIn;

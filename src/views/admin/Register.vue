@@ -78,7 +78,7 @@ export default {
             if (response.body) {
               localStorage.loggedIn = "yes";
               localStorage.user = user.email;
-              localStorage.userId = user.username;
+              localStorage.username = user.username;
               EventBus.$emit("$loggedIn");
               this.$router.push({ path: "/" });
             }
