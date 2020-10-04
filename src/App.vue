@@ -1,14 +1,21 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link class="router-link" to="/">Home</router-link>
-      <router-link v-if="!loggedIn" class="router-link" to="/register">Register</router-link>
+      <!-- admin -->
+      <div class="admin">
+        <router-link v-if="!loggedIn" class="router-link__admin" to="/login">Login</router-link>
+        <router-link v-if="!loggedIn" class="router-link__admin" to="/register">Register</router-link>
+        <a v-if="loggedIn" v-on:click="logOutUser" href="#">Logout</a>
+      </div>
+      <!-- everything else -->
+      <div class="everything-else">
+        <router-link class="router-link" to="/">Browse</router-link>
       <router-link v-if="loggedIn" class="router-link" to="/account">{{id}}</router-link>
-      <router-link v-if="!loggedIn" class="router-link" to="/login">Login</router-link>
-      <router-link class="router-link" to="/post">Post Listing</router-link>
-      <a v-if="loggedIn" v-on:click="logOutUser" href="#">Logout</a>
+      <router-link class="nav-link" to="/post">Post Listing</router-link>
+      <router-link v-if="!loggedIn" class="nav-link" to="/account">My Account</router-link>
+      </div>
     </div>
-    <router-view/>
+    <router-view />
     <!-- <my-footer></my-footer> -->
   </div>
 </template>
@@ -36,13 +43,14 @@ export default {
     EventBus.$on("$loggedIn", () => {
       localStorage.loggedIn = "yes";
       this.loggedIn = localStorage.loggedIn;
-      this.id = localStorage.userId;
-    })
+      this.id = localStorage.username;
+    });
   }
 };
 </script>
 
 <style lang="scss">
+@import "scss/variables";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -53,20 +61,38 @@ export default {
 
 .router-link {
   margin: 0 10px;
-  color: red;
+  color: white;
+  &__admin {
+    font-weight: 100;
+    color: white;
+    margin: 0 10px;
+    font-size: 0.9em;
+  }
+}
+
+.nav-link {
+  color: white;
+  background: $primary-shade;
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+
+.admin {
+  margin-bottom: 10px;
 }
 
 #nav {
-  height:60px;
+  height: 100px;
   width: 100%;
-  background-color: #455A6C;
+  background-color: #455a6c;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
   margin: 0 0 20px 0;
-
+  padding: 20px;
 
   a {
-    font-weight: bold;
     text-decoration: none;
 
     &.router-link-exact-active {
