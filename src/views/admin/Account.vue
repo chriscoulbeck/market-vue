@@ -17,7 +17,8 @@
 export default {
   data() {
     return {
-      products: []
+      products: [],
+      loggedIn: ""
     };
   },
   methods: {
@@ -33,6 +34,10 @@ export default {
   },
   created() {
     this.getProducts();
+    this.loggedIn = localStorage.loggedIn;
+    if (!this.loggedIn) {
+      this.$router.push({ path: "/login" })
+    }
   }
 };
 </script>
