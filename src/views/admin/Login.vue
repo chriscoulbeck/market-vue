@@ -1,25 +1,26 @@
 <template>
-  <div>
-    <h1>Log In</h1>
-
-    <form v-on:submit.prevent="checkForm">
-      <!-- error display, this iterates through all the errors present in the error display and shows them. If there are none it doesn't render at all. -->
-      <div v-if="errors.length">
-        <ul v-for="(error, index) in errors" v-bind:key="index">
-          <li>{{error}}</li>
-        </ul>
-      </div>
-      <!-- this is the email field, which is bound to the email property in the data object via v-model -->
-      <div class="input-field">
-        <label for="email">Email</label>
-        <input v-model="user.email" type="text" name="email" id="email" />
-      </div>
-      <div>
-        <input type="submit" value="Log In" />
-      </div>
-      <router-link class="router-link" to="/register">Register</router-link>
-    </form>
-  </div>
+  <section class="log-in-container">
+    <div class="form-wrapper">
+      <h1>Log In</h1>
+      <form v-on:submit.prevent="checkForm">
+        <!-- error display, this iterates through all the errors present in the error display and shows them. If there are none it doesn't render at all. -->
+        <div v-if="errors.length">
+          <ul v-for="(error, index) in errors" v-bind:key="index">
+            <li>{{ error }}</li>
+          </ul>
+        </div>
+        <!-- this is the email field, which is bound to the email property in the data object via v-model -->
+        <div class="input-field">
+          <label for="email">Email</label>
+          <input v-model="user.email" type="text" name="email" id="email" />
+        </div>
+        <div>
+          <input type="submit" value="Log In" />
+        </div>
+        <router-link class="router-link" to="/register">Register</router-link>
+      </form>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -31,9 +32,9 @@ export default {
     return {
       user: {
         // the email from the input is bound to this property, they are always going to be the same
-        email: ""
+        email: "",
       },
-      errors: []
+      errors: [],
     };
   },
   methods: {
@@ -68,23 +69,39 @@ export default {
           this.errors.push(response.body);
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 @import "../../scss/variables";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+h1 {
+  display: inline-block;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  & h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.4em;
+  }
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 500px;
+  margin: auto;
+  padding: 10px;
+
 }
 
 form {
-  max-width: 400px;
-  margin: auto;
+  width: 100%;
 }
 
 .input-field {
