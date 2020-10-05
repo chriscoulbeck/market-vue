@@ -1,38 +1,54 @@
 <template>
-  <div>
-    <h1>Register User</h1>
-
-    <form v-on:submit.prevent="checkForm">
-      <!-- error display -->
-      <div v-if="errors.length">
-        <p>
-          <b>Please correct the following this.errors:</b>
-        </p>
-        <ul v-for="(error, index) in errors" v-bind:key="index">
-          <li>{{error}}</li>
-        </ul>
-      </div>
-      <div class="input-field">
-        <label for="firstname">First Name</label>
-        <input v-model="user.firstname" type="text" name="firstname" id="firstname" />
-      </div>
-      <div class="input-field">
-        <label for="lastname">Last Name</label>
-        <input v-model="user.lastname" type="text" name="lastname" id="lastname" />
-      </div>
-      <div class="input-field">
-        <label for="username">Username</label>
-        <input v-model="user.username" type="text" name="username" id="username" />
-      </div>
-      <div class="input-field">
-        <label for="email">Email</label>
-        <input v-model="user.email" type="text" name="email" id="email" />
-      </div>
-      <div>
-        <input type="submit" value="Register" />
-      </div>
-    </form>
-  </div>
+  <section>
+    <div class="form-wrapper">
+      <h1>Register User</h1>
+      <form v-on:submit.prevent="checkForm">
+        <!-- error display -->
+        <div v-if="errors.length">
+          <p>
+            <b>Please correct the following this.errors:</b>
+          </p>
+          <ul v-for="(error, index) in errors" v-bind:key="index">
+            <li>{{ error }}</li>
+          </ul>
+        </div>
+        <div class="input-field">
+          <label for="firstname">First Name</label>
+          <input
+            v-model="user.firstname"
+            type="text"
+            name="firstname"
+            id="firstname"
+          />
+        </div>
+        <div class="input-field">
+          <label for="lastname">Last Name</label>
+          <input
+            v-model="user.lastname"
+            type="text"
+            name="lastname"
+            id="lastname"
+          />
+        </div>
+        <div class="input-field">
+          <label for="username">Username</label>
+          <input
+            v-model="user.username"
+            type="text"
+            name="username"
+            id="username"
+          />
+        </div>
+        <div class="input-field">
+          <label for="email">Email</label>
+          <input v-model="user.email" type="text" name="email" id="email" />
+        </div>
+        <div>
+          <input type="submit" value="Register" />
+        </div>
+      </form>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -44,9 +60,9 @@ export default {
         firstname: "",
         lastname: "",
         username: "",
-        email: ""
+        email: "",
       },
-      errors: []
+      errors: [],
     };
   },
   methods: {
@@ -74,7 +90,7 @@ export default {
         .post(`${process.env.VUE_APP_API_URL}users`, user)
         // .then takes two params, a success callback and an error callback
         .then(
-          response => {
+          (response) => {
             if (response.body) {
               localStorage.loggedIn = "yes";
               localStorage.user = user.email;
@@ -83,16 +99,16 @@ export default {
               this.$router.push({ path: "/" });
             }
           },
-          response => {
+          (response) => {
             this.errors.push(response.body.message);
           }
         );
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../scss/variables";
 
 * {
@@ -102,14 +118,13 @@ export default {
 }
 
 h1 {
-  padding-bottom: 50px;
+  margin: 0 0 10px 0;
+  font-size: 1.4em;
 }
 
 form {
   @include flex-direction(column);
   // align-items: flex-start;
-  margin: auto;
-  max-width: 400px;
 }
 
 .input-field {
