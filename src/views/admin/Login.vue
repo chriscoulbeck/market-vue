@@ -84,6 +84,7 @@ h1 {
 section {
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 100vh;
   & h1 {
     margin: 0 0 10px 0;
@@ -95,8 +96,8 @@ section {
   display: flex;
   flex-direction: column;
   flex-basis: 500px;
-  margin: auto;
   padding: 10px;
+  margin-bottom: 200px;
 
 }
 
@@ -119,7 +120,10 @@ form {
 
 input[type="submit"] {
   margin-top: 5px;
-  padding: 10px;
+  padding: 15px;
   width: 100%;
+  background: #2c3e50;
+  border: none;
+  color: white;
 }
 </style>

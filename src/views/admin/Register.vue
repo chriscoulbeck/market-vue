@@ -117,9 +117,19 @@ export default {
   box-sizing: border-box;
 }
 
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 h1 {
   margin: 0 0 10px 0;
   font-size: 1.4em;
+}
+
+.form-wrapper {
+  margin-bottom: 200px;
 }
 
 form {
@@ -142,7 +152,10 @@ form {
 
 input[type="submit"] {
   margin-top: 5px;
-  padding: 10px;
+  padding: 15px;
   width: 100%;
+  background: #2c3e50;
+  border: none;
+  color: white;
 }
 </style>
