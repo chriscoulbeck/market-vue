@@ -29,13 +29,13 @@ export default {
 .comment {
   &__body {
     margin-left: 15px;
+    width: 100%;
   }
   @include flex-direction(row);
-  width: 100%;
   padding: 15px;
-  margin-left: 50px;
   &__text {
-    margin:0 0 5px 00px;
+    margin:0 0 5px 0px;
+    overflow-wrap: break-word;
   }
   &__user {
     font-size: 0.8em;

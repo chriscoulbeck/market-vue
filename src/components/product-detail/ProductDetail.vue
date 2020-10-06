@@ -1,69 +1,70 @@
 <template>
-<!-- section -->
-<section>
-  <router-link to="/" class="router-link">Back to search results</router-link>
-  <!-- wrapper -->
-  <div class="flex-wrapper">
-    <!-- col-1 -->
-    <div class="col-1">
-      <!-- photographs -->
-      <div class="photo-wrapper">
-        <img src=../../assets/images/phone.jpg alt="">
-      </div>
-      <!-- comments-wrapper -->
-      <div class="comment-container">
-        <h2 class="comment__header">{{lengthOfProducts}} Comments</h2>
-        <!-- comments -->
-        <div class="comments">
-          <comment v-for="(comment, index) in comments" v-bind:key="index" :comment="comment"/>
-        </div>
-        <router-link to="/login"></router-link>
-        <div v-if="!loggedIn">
-          <span>You must </span>
-          <router-link v-if="!loggedIn" class="router-link" to="/login">Log in</router-link>
-          <span>to leave a comment</span>
-        </div>
-        <!-- comment form -->
-        <form v-if="loggedIn" v-on:submit.prevent="checkForm" class="comments__input">
-          <!-- errors -->
-          <div v-if="errors.length">
-            <ul v-for="(error, index) in errors" v-bind:key="index">
-              <li>{{ error }}</li>
-            </ul>
+  <!-- section -->
+  <section>
+    <router-link to="/" class="router-link">Back to search results</router-link>
+    <!-- wrapper -->
+    <div class="flex-wrapper">
+      <!-- col-1 -->
+      <div class="col-1">
+        <!-- photographs -->
+        <div class="photo-wrapper"><img src=../../assets/images/phone.jpg alt=""></div>
+        <!-- comments-wrapper -->
+        <div class="comment-container">
+          <h2 class="comment__header">{{lengthOfComments}} Comments</h2>
+          <!-- comments -->
+          <div class="comments">
+            <comment v-for="(comment, index) in comments" v-bind:key="index" :comment="comment" />
           </div>
-          <!-- comment input -->
-          <textarea placeholder="Write a public comment" ref="myTextArea" v-model="comment.body" rows="3" cols="50"></textarea>
-          <!-- <input
+          <router-link to="/login"></router-link>
+          <div v-if="!loggedIn">
+            <span>You must</span>
+            <router-link v-if="!loggedIn" class="router-link" to="/login">Log in</router-link>
+            <span>to leave a comment</span>
+          </div>
+          <!-- comment form -->
+          <form v-if="loggedIn" v-on:submit.prevent="checkForm" class="comments__input">
+            <!-- errors -->
+            <div v-if="errors.length">
+              <ul v-for="(error, index) in errors" v-bind:key="index">
+                <li>{{ error }}</li>
+              </ul>
+            </div>
+            <!-- comment input -->
+            <textarea maxLength="100" @change="letterCount"
+              placeholder="Write a public comment"
+              ref="myTextArea"
+              v-model="comment.body"
+              rows="2"
+              cols="50"
+            ></textarea>
+            <!-- <input
             v-model="comment.body"
             type="text"
             name="comment"
             id="comment"
-          /> -->
-          <!-- comment post button -->
-          <input type="submit" value="Comment" />
-        </form>
+            />-->
+            <!-- comment post button -->
+            <span>{{ letterCount }} characters remaining...</span>
+            <button class="comment__submit">Post Comment</button>
+          </form>
+        </div>
+      </div>
+      <!-- col-2 -->
+      <div class="col-2">
+        <h3 class="product__title">{{dummyProduct.title}}</h3>
+        <!-- details and description -->
+        <div>
+          <!-- details -->
+          <h4>Description</h4>
+          <p>{{dummyProduct.description}}</p>
+        </div>
+        <div>
+          <!-- description -->
+          <!-- <h4>Description</h4> -->
+        </div>
       </div>
     </div>
-    <!-- col-2 -->
-    <div class="col-2">
-      <h3 class="product__title">{{product.title}}</h3>
-      <!-- details and description -->
-      <div>
-        <!-- details -->
-        <h4>Details</h4>
-      </div>
-      <div>
-        <!-- description -->
-        <h4>Description</h4>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
+  </section>
 
   <!-- <div>
     <div class="backtosearch">
@@ -116,21 +117,22 @@
         
       </div>
     </div>
-  </div> -->
+  </div>-->
 </template>
 
 <script>
 import Comment from "../comment/Comment";
 
-
 export default {
   name: "ProductDetail",
   components: {
-    comment: Comment,
+    comment: Comment
   },
 
   data: function() {
     return {
+      readOnly: false,
+      maxLetters: 100,
       errors: [],
       loggedIn: "",
       product: {},
@@ -140,16 +142,35 @@ export default {
         body: "",
         product: null,
         user: null
+      },
+      dummyProduct: {
+        title: "Samsung Galaxy S10+ 128GB G975F Prism Black",
+        description: `LEARANCE PRICING!
+
+Condition: New
+1-day Warranty: 12 Months
+What's in the Box?
+
+    Samsung Galaxy Smartphone
+    Charging Plug 
+
+The result of 10 years of pioneering mobile firsts, the next generation of Galaxy has arrived - the phone that doesn't just stand out, it stands apart...
+
+The Most Immersive Display Yet: With on-screen security, and a Dynamic AMOLED that's easy on the eyes, there's virtually nothing to get in the way of your viewing. Not even the screen you're viewing it on.
+
+Ultrasonic Fingerprint Security: We've moved security from the back of the phone to the front, fusing the Ultrasonic Fingerprint directly into the screen.`
       }
     };
   },
   computed: {
-    lengthOfProducts: function() {
+    lengthOfComments: function() {
       return this.comments.length;
+    },
+    letterCount: function() {
+      return 100 - this.comment.body.length;
     }
   },
   methods: {
-
     checkForm: function(event) {
       event.preventDefault();
       this.errors = [];
@@ -168,13 +189,13 @@ export default {
       this.$http
         .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
         .then(
-          (response) => {
+          response => {
             if (response.body) {
               this.getProductById();
               this.getComments();
             }
           },
-          (response) => {
+          response => {
             this.errors.push(response.body.message);
           }
         );
@@ -189,9 +210,11 @@ export default {
     },
     getComments: function() {
       const id = this.$route.params.productId;
-      this.$http.get(`${process.env.VUE_APP_API_URL}products/${id}/comments`).then(function(data) {
-        this.comments = data.body;
-      })
+      this.$http
+        .get(`${process.env.VUE_APP_API_URL}products/${id}/comments`)
+        .then(function(data) {
+          this.comments = data.body;
+        });
     }
   },
 
@@ -200,8 +223,8 @@ export default {
     (this.product = {}),
       (this.loggedIn = localStorage.loggedIn),
       this.getProductById();
-      this.getComments();
-  },
+    this.getComments();
+  }
 };
 </script>
 
@@ -221,7 +244,7 @@ export default {
 }
 
 .col-1 {
-  flex: 2;
+  max-width: 60%;
   margin: 0 10px;
 }
 
@@ -244,25 +267,26 @@ export default {
   margin: 40px 0;
 }
 
-.comment__header {
-  font-size: 1em;
-  font-weight: 500;
-  margin-bottom: 20px;
+.comment {
+  &__header {
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  &__submit {
+      margin: 10px 0;
+      padding: 15px 25px;
+      background: $primary;
+      border: none;
+      color: white;
+      border-radius: 2px;
+      font-size: 0.9em;
+      display: block;
+    }
 }
 
 .comments {
   margin-bottom: 15px;
-}
-
-input[type=submit] {
-  margin: 10px 0;
-  padding: 15px 25px;
-  background: $primary;
-  border: none;
-  color: white;
-  border-radius: 2px;
-  font-size: 0.9em;
-  display: block;
 }
 
 textarea {
@@ -272,6 +296,10 @@ textarea {
   font-size: 0.9em;
 }
 
+span {
+  display: block;
+  margin: 20px 0;
+}
 
 .col-2 {
   margin: 0 20px;
@@ -280,7 +308,4 @@ textarea {
 .product__title {
   font-size: 2em;
 }
-
-
-
 </style>
