@@ -5,9 +5,6 @@
       <form v-on:submit.prevent="checkForm">
         <!-- error display -->
         <div v-if="errors.length">
-          <p>
-            <b>Please correct the following this.errors:</b>
-          </p>
           <ul v-for="(error, index) in errors" v-bind:key="index">
             <li>{{ error }}</li>
           </ul>

@@ -1,14 +1,76 @@
 <template>
-  <div>
+<!-- section -->
+<section>
+  <router-link to="/" class="router-link">Back to search results</router-link>
+  <!-- wrapper -->
+  <div class="flex-wrapper">
+    <!-- col-1 -->
+    <div class="col-1">
+      <!-- photographs -->
+      <div class="photo-wrapper">
+        <img src=../../assets/images/phone.jpg alt="">
+      </div>
+      <!-- comments-wrapper -->
+      <div class="comment-container">
+        <h2 class="comment__header">{{lengthOfProducts}} Comments</h2>
+        <!-- comments -->
+        <div class="comments">
+          <comment v-for="(comment, index) in comments" v-bind:key="index" :comment="comment"/>
+        </div>
+        <router-link to="/login"></router-link>
+        <div v-if="!loggedIn">
+          <span>You must </span>
+          <router-link v-if="!loggedIn" class="router-link" to="/login">Log in</router-link>
+          <span>to leave a comment</span>
+        </div>
+        <!-- comment form -->
+        <form v-if="loggedIn" v-on:submit.prevent="checkForm" class="comments__input">
+          <!-- errors -->
+          <div v-if="errors.length">
+            <ul v-for="(error, index) in errors" v-bind:key="index">
+              <li>{{ error }}</li>
+            </ul>
+          </div>
+          <!-- comment input -->
+          <textarea placeholder="Write a public comment" ref="myTextArea" v-model="comment.body" rows="3" cols="50"></textarea>
+          <!-- <input
+            v-model="comment.body"
+            type="text"
+            name="comment"
+            id="comment"
+          /> -->
+          <!-- comment post button -->
+          <input type="submit" value="Comment" />
+        </form>
+      </div>
+    </div>
+    <!-- col-2 -->
+    <div class="col-2">
+      <h3 class="product__title">{{product.title}}</h3>
+      <!-- details and description -->
+      <div>
+        <!-- details -->
+        <h4>Details</h4>
+      </div>
+      <div>
+        <!-- description -->
+        <h4>Description</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+  <!-- <div>
     <div class="backtosearch">
-      <router-link to="/" class="router-link"
-        >Back to search results</router-link
-      >
     </div>
     <div class="container">
       <div class="product-listing">
         <div class="img-phone">
-          <img src=../../assets/images/phone.jpg alt="">
         </div>
       </div>
       <div class="right-container">
@@ -48,40 +110,19 @@
     </div>
     <div class="items">
       <div class="comments">
-        <h2>Comments</h2>
-        <comment v-for="(comment, index) in comments" v-bind:key="index" :comment="comment"/>
-        <router-link to="/login"></router-link>
-        <div v-if="!loggedIn">
-          You need to
-          <router-link v-if="!loggedIn" class="router-link" to="/login"
-            >Login</router-link
-          >
+        
+        
         </div>
-        <form
-          v-if="loggedIn"
-          v-on:submit.prevent="checkForm"
-          class="comments__input"
-        >
-          <div v-if="errors.length">
-            <ul v-for="(error, index) in errors" v-bind:key="index">
-              <li>{{ error }}</li>
-            </ul>
-          </div>
-          <input
-            v-model="comment.body"
-            type="text"
-            name="comment"
-            id="comment"
-          />
-          <input type="submit" value="Submit" />
-        </form>
+        
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
 import Comment from "../comment/Comment";
+
+
 export default {
   name: "ProductDetail",
   components: {
@@ -102,7 +143,13 @@ export default {
       }
     };
   },
+  computed: {
+    lengthOfProducts: function() {
+      return this.comments.length;
+    }
+  },
   methods: {
+
     checkForm: function(event) {
       event.preventDefault();
       this.errors = [];
@@ -159,5 +206,81 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./scss/main.scss";
+@import "../../scss/variables";
+
+* {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.flex-wrapper {
+  max-width: 1300px;
+  margin: auto;
+  padding: 0 20px;
+
+  @include flex-direction(row);
+}
+
+.col-1 {
+  flex: 2;
+  margin: 0 10px;
+}
+
+.col-2 {
+  flex: 1;
+}
+
+.photo-wrapper {
+  @include flex-direction(row);
+  justify-content: center;
+  padding: 20px;
+  background: $off-white;
+  & img {
+    object-fit: cover;
+  }
+}
+
+.comment-container {
+  @include flex-direction(column);
+  margin: 40px 0;
+}
+
+.comment__header {
+  font-size: 1em;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.comments {
+  margin-bottom: 15px;
+}
+
+input[type=submit] {
+  margin: 10px 0;
+  padding: 15px 25px;
+  background: $primary;
+  border: none;
+  color: white;
+  border-radius: 2px;
+  font-size: 0.9em;
+  display: block;
+}
+
+textarea {
+  width: 75%;
+  padding: 20px;
+  margin-top: 20px;
+  font-size: 0.9em;
+}
+
+
+.col-2 {
+  margin: 0 20px;
+}
+
+.product__title {
+  font-size: 2em;
+}
+
+
+
 </style>
