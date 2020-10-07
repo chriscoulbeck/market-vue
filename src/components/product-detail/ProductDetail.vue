@@ -1,71 +1,66 @@
 <template>
-  <!-- section -->
-  <section>
-    <router-link to="/" class="router-link">Back to search results</router-link>
-    <!-- wrapper -->
-    <div class="flex-wrapper">
-      <!-- col-1 -->
-      <div class="col-1">
-        <!-- photographs -->
-        <div class="photo-wrapper"><img src=../../assets/images/phone.jpg alt=""></div>
-        <!-- comments-wrapper -->
-        <div class="comment-container">
-          <h2 class="comment__header">{{lengthOfComments}} Comments</h2>
-          <!-- comments -->
-          <div class="comments">
-            <comment v-for="(comment, index) in comments" v-bind:key="index" :comment="comment" />
+  <div>
+    <section class="section row-1">
+      <div class="columns">
+        <div class="column is-two-thirds-desktop is-full-mobile listing-photos">
+          <img src=../../assets/images/phone.jpg alt="">
+        </div>
+        <div class="column is-one-third">
+          <h1 class="title">{{ product.title }}</h1>
+        </div>
+      </div>
+    </section>
+    <section class="section row-2">
+      <div class="column is-two-thirds-desktop is-full-mobile">
+        <div class="container">
+          <h5 class="title is-5">Description</h5>
+          <p class="is-small">{{ dummyProduct.description }}</p>
+        </div>
+        <div class="container">
+          <h5 class="title is-5">Comments ({{ lengthOfComments }})</h5>
+          <comment
+            v-for="(comment, index) in comments"
+            v-bind:key="index"
+            :comment="comment"
+          />
+        </div>
+        <form v-if="loggedIn" v-on:submit.prevent="checkForm">
+          <!-- Error  Handling -->
+          <div v-if="errors.length">
+            <ul v-for="(error, index) in errors" v-bind:key="index">
+              <li>{{ error }}</li>
+            </ul>
           </div>
-          <router-link to="/login"></router-link>
-          <div v-if="!loggedIn">
-            <span>You must</span>
-            <router-link v-if="!loggedIn" class="router-link" to="/login">Log in</router-link>
-            <span>to leave a comment</span>
-          </div>
-          <!-- comment form -->
-          <form v-if="loggedIn" v-on:submit.prevent="checkForm" class="comments__input">
-            <!-- errors -->
-            <div v-if="errors.length">
-              <ul v-for="(error, index) in errors" v-bind:key="index">
-                <li>{{ error }}</li>
-              </ul>
+          <!-- Input -->
+          <article class="media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="https://bulma.io/images/placeholders/128x128.png" />
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="field">
+                <p class="control">
+                  <textarea
+                    v-model="comment.body"
+                    class="textarea"
+                    placeholder="Add a comment..."
+                  ></textarea>
+                </p>
+              </div>
+              <nav class="level">
+                <div class="level-left">
+                  <div class="level-item">
+                    <input type="submit" class="button is-primary" Value="Post Comment">
+                  </div>
+                </div>
+              </nav>
             </div>
-            <!-- comment input -->
-            <textarea maxLength="100"
-              placeholder="Write a public comment"
-              ref="myTextArea"
-              v-model="comment.body"
-              rows="2"
-              cols="50"
-            ></textarea>
-            <!-- <input
-            v-model="comment.body"
-            type="text"
-            name="comment"
-            id="comment"
-            />-->
-            <!-- comment post button -->
-            <span>{{ letterCount }} characters remaining...</span>
-            <button class="comment__submit">Post Comment</button>
-          </form>
-        </div>
+          </article>
+        </form>
       </div>
-      <!-- col-2 -->
-      <div class="col-2">
-        <h3 class="product__title">{{dummyProduct.title}}</h3>
-        <!-- details and description -->
-        <div>
-          <!-- details -->
-          <h4>Description</h4>
-          <p>{{dummyProduct.description}}</p>
-        </div>
-        <div>
-          <!-- description -->
-          <!-- <h4>Description</h4> -->
-        </div>
-      </div>
-    </div>
-  </section>
-  
+    </section>
+  </div>
 </template>
 
 <script>
@@ -93,6 +88,7 @@ export default {
       },
       dummyProduct: {
         title: "Samsung Galaxy S10+ 128GB G975F Prism Black",
+        price: "10,000",
         description: `LEARANCE PRICING!
 
 Condition: New
@@ -106,7 +102,7 @@ The result of 10 years of pioneering mobile firsts, the next generation of Galax
 
 The Most Immersive Display Yet: With on-screen security, and a Dynamic AMOLED that's easy on the eyes, there's virtually nothing to get in the way of your viewing. Not even the screen you're viewing it on.
 
-Ultrasonic Fingerprint Security: We've moved security from the back of the phone to the front, fusing the Ultrasonic Fingerprint directly into the screen.`
+Ultrasonic Fingerprint Security: We've moved security from the back of the phone to the front, fusing the Ultrasonic Fingerprint directly into the screen.`,
       }
     };
   },
@@ -178,82 +174,29 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
 
 <style lang="scss">
 @import "../../scss/variables";
+@import "../../scss/bulma";
 
 * {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.flex-wrapper {
-  max-width: 1300px;
+.section {
+  width: 1100px;
   margin: auto;
-  padding: 0 20px;
-
-  @include flex-direction(row);
 }
 
-.col-1 {
-  max-width: 60%;
-  margin: 0 10px;
-}
-
-.col-2 {
-  flex: 1;
-}
-
-.photo-wrapper {
+.listing-photos {
   @include flex-direction(row);
   justify-content: center;
-  padding: 20px;
-  background: $off-white;
-  & img {
-    object-fit: cover;
-  }
+  background: $light-grey;
 }
 
-.comment-container {
-  @include flex-direction(column);
-  margin: 40px 0;
+.button {
+  width: 150px;
 }
 
-.comment {
-  &__header {
-    font-size: 1em;
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-  &__submit {
-      margin: 10px 0;
-      padding: 15px 25px;
-      background: $primary;
-      border: none;
-      color: white;
-      border-radius: 2px;
-      font-size: 0.9em;
-      display: block;
-    }
-}
-
-.comments {
-  margin-bottom: 15px;
-}
-
-textarea {
+.container {
+  margin: 0;
   width: 100%;
-  padding: 20px;
-  margin-top: 20px;
-  font-size: 0.9em;
-}
-
-span {
-  display: block;
-  margin: 20px 0;
-}
-
-.col-2 {
-  margin: 0 20px;
-}
-
-.product__title {
-  font-size: 2em;
 }
 </style>
