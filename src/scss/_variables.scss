@@ -5,6 +5,15 @@
     flex-direction: $direction;
 }
 
+@mixin button {
+    padding: 15px 20px;
+    background: $primary;
+    border: none;
+    color: white;
+    font-size: 0.9em;
+    display: block;
+    border-radius: 2px;
+}
 
 //Colors
     //Primary
