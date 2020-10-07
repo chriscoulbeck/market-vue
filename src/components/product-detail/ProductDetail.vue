@@ -14,7 +14,7 @@
       <div class="right-container">
         <h1 class="right-container__title">{{ product.title }}</h1>
         <h3 class="right-container__price">{{ product.price }}</h3>
-        <h5 class="right-container__listed">{{ product.listed }}</h5>
+        <h5 class="right-container__listed">Listed 1 day ago in Christchurch, Canterbury</h5>
 
         <button class="right-container__button-send-message" type="submit">
           Message Seller
@@ -39,13 +39,11 @@
         <p class="details1__p">{{ product.details }}</p>
       </div>
       <div class="description">
-        <h5 class="ddescription__h5">Description</h5>
+        <h5 class="description__h5">Description</h5>
         <p class="description__p">{{ product.description }}</p>
       </div>
     </div>
-    <div class="line">
-      <h2 class="line__lineorange"><span></span></h2>
-    </div>
+    
     <div class="items">
       <div class="comments">
         <h2>Comments</h2>
@@ -73,19 +71,24 @@
             name="comment"
             id="comment"
           />
-          <input type="submit" value="Submit" />
+          <input class="btn-comment" type="submit" value="Submit" />
         </form>
       </div>
+    </div>
+    <div class="line">
+      <h2 class="line__lineorange"><span></span></h2>
     </div>
   </div>
 </template>
 
 <script>
 import Comment from "../comment/Comment";
+
 export default {
   name: "ProductDetail",
   components: {
     comment: Comment,
+    similaritems:Similaritems,
   },
 
   data: function() {
@@ -159,5 +162,23 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./scss/main.scss";
+@import "../../scss/variables.scss";
+@import "../../scss/main.scss";
+
+.items{
+width: 100%
+}
+.comments{
+width: 40%;
+border:3px solid $light-grey;
+}
+
+.btn-comment{
+  text-align: center;
+  border: 1px solid $secondary;
+  background-color: $secondary;
+  padding: 1rem;
+  border-radius: 3px $secondary; 
+}
+
 </style>
