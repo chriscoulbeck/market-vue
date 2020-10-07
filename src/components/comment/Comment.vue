@@ -1,15 +1,20 @@
 <template>
-  <div class="comment">
-    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-      <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-      <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-    </svg>
-    <div class="comment__body">
-      <p class="comment__user">{{comment.user}}</p>
-      <p class="comment__text">{{comment.body}}</p>
+  <article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="https://bulma.io/images/placeholders/128x128.png">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>John Smith</strong> <small>{{comment.user}}</small> <small>31m</small>
+        <br>
+        {{comment.body}}
+      </p>
     </div>
   </div>
+</article>
 </template>
 
 <script>
@@ -21,26 +26,9 @@ export default {
 
 <style lang="scss" >
 @import "../../scss/variables";
+@import "../../scss/bulma";
 
-.bi-person-circle {
-  font-size: 1.5em;
-}
-
-.comment {
-  &__body {
-    margin-left: 15px;
-    width: 100%;
-  }
-  @include flex-direction(row);
-  padding: 15px;
-  &__text {
-    margin:0 0 5px 0px;
-    overflow-wrap: break-word;
-  }
-  &__user {
-    font-size: 0.8em;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+.container {
+  @include flex-direction(column);
 }
 </style>

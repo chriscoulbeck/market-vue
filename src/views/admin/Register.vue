@@ -2,48 +2,45 @@
   <section>
     <div class="form-wrapper">
       <h1>Register User</h1>
-      <form v-on:submit.prevent="checkForm">
-        <!-- error display -->
-        <div v-if="errors.length">
-          <ul v-for="(error, index) in errors" v-bind:key="index">
-            <li>{{ error }}</li>
-          </ul>
-        </div>
-        <div class="input-field">
-          <label for="firstname">First Name</label>
-          <input
-            v-model="user.firstname"
-            type="text"
-            name="firstname"
-            id="firstname"
-          />
-        </div>
-        <div class="input-field">
-          <label for="lastname">Last Name</label>
-          <input
-            v-model="user.lastname"
-            type="text"
-            name="lastname"
-            id="lastname"
-          />
-        </div>
-        <div class="input-field">
-          <label for="username">Username</label>
-          <input
-            v-model="user.username"
-            type="text"
-            name="username"
-            id="username"
-          />
-        </div>
-        <div class="input-field">
-          <label for="email">Email</label>
-          <input v-model="user.email" type="text" name="email" id="email" />
-        </div>
-        <div>
-          <input type="submit" value="Register" />
-        </div>
-      </form>
+      <form @submit.prevent="checkForm">
+    <b-field class="test" label="Firstname">
+      <b-input
+        v-model="user.firstname"
+        type="text"
+        placeholder="Your email"
+        required
+      >
+      </b-input>
+    </b-field>
+    <b-field class="test" label="Lastname">
+      <b-input
+        v-model="user.lastname"
+        type="text"
+        placeholder="Your email"
+        required
+      >
+      </b-input>
+    </b-field>
+    <b-field class="test" label="Username">
+      <b-input
+        v-model="user.username"
+        type="text"
+        placeholder="Your email"
+        required
+      >
+      </b-input>
+    </b-field>
+    <b-field class="test" label="Email">
+      <b-input
+        v-model="user.email"
+        type="email"
+        placeholder="Your email"
+        required
+      >
+      </b-input>
+    </b-field>
+    <b-input type="submit">Submit</b-input>
+  </form>
     </div>
   </section>
 </template>
@@ -107,6 +104,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../scss/variables";
+@import "../../scss/bulma";
 
 * {
   margin: 0;
@@ -148,11 +146,8 @@ form {
 }
 
 input[type="submit"] {
-  margin-top: 5px;
-  padding: 15px;
-  width: 100%;
-  background: #2c3e50;
-  border: none;
-  color: white;
+  @include flex-direction(row);
+  justify-content: center;
+  display: block;
 }
 </style>
