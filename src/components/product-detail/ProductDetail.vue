@@ -5,9 +5,6 @@
         <div class="column is-two-thirds-desktop is-full-mobile listing-photos">
           <img src=../../assets/images/phone.jpg alt="">
         </div>
-        <div class="column is-one-third">
-          <h1 class="title">{{ product.title }}</h1>
-        </div>
       </div>
     </section>
     <section class="section row-2">
@@ -189,6 +186,9 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
   @include flex-direction(row);
   justify-content: center;
   background: $light-grey;
+  & img {
+    object-fit: cover;
+  }
 }
 
 .button {

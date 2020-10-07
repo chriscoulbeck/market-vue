@@ -1,16 +1,14 @@
 <template>
-  <form @submit.prevent="checkForm">
-    <b-field class="test" label="Log in">
-      <b-input
-        v-model="user.email"
-        type="email"
-        placeholder="Your email"
-        required
-      >
-      </b-input>
-    </b-field>
-    <b-input type="submit">Submit</b-input>
-  </form>
+  <div class="section">
+    <div class="container">
+      <form @submit.prevent="checkForm">
+        <b-field class="test" label="Log in">
+          <b-input v-model="user.email" type="email" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-button expanded tag="input" native-type="submit" type="is-primary" value="Submit input" />
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -22,9 +20,9 @@ export default {
     return {
       user: {
         // the email from the input is bound to this property, they are always going to be the same
-        email: "",
+        email: ""
       },
-      errors: [],
+      errors: []
     };
   },
   methods: {
@@ -59,8 +57,8 @@ export default {
           this.errors.push(response.body);
         }
       );
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -72,47 +70,17 @@ h1 {
   display: inline-block;
 }
 
-.model-card-body {
-  @include flex-direction(column);
+.section {
+  margin: auto;
 }
 
-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & h1 {
-    margin: 0 0 10px 0;
-    font-size: 1.4em;
-  }
-}
-
-.form-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 500px;
-  padding: 10px;
-  margin-bottom: 200px;
+.container {
+  flex-basis: 100px;
+  max-width: 400px;
+  margin: auto;
 }
 
 form {
-  width: 100%;
-}
-
-.input-field {
   @include flex-direction(column);
-  align-items: flex-start;
-  & label {
-    padding-bottom: 2px;
-  }
-  & input {
-    padding: 7px 0;
-    margin-bottom: 10px;
-    width: 100%;
-  }
-}
-input[type="submit"] {
-  @include flex-direction(row);
-  justify-content: center;
-  display: block;
 }
 </style>
