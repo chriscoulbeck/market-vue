@@ -30,7 +30,7 @@
               </ul>
             </div>
             <!-- comment input -->
-            <textarea maxLength="100" @change="letterCount"
+            <textarea maxLength="100"
               placeholder="Write a public comment"
               ref="myTextArea"
               v-model="comment.body"
@@ -65,59 +65,7 @@
       </div>
     </div>
   </section>
-
-  <!-- <div>
-    <div class="backtosearch">
-    </div>
-    <div class="container">
-      <div class="product-listing">
-        <div class="img-phone">
-        </div>
-      </div>
-      <div class="right-container">
-        <h1 class="right-container__title">{{ product.title }}</h1>
-        <h3 class="right-container__price">{{ product.price }}</h3>
-        <h5 class="right-container__listed">{{ product.listed }}</h5>
-
-        <button class="right-container__button-send-message" type="submit">
-          Message Seller
-        </button>
-
-        <div class="usercontainer">
-          <h4 class="usercontainer__sellerinfo">Seller Information</h4>
-          <h5 class="usercontainer__username">{{ product.username }}</h5>
-          <h5 class="usercontainer__userrating">{{ product.userrating }}</h5>
-          <div class="stars">
-            <img src="../../assets/images/star.png" alt="" />
-            <img src="../../assets/images/star.png" alt="" />
-
-            <img src="../../assets/images/star.png" alt="" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="details-container">
-      <div class="details1">
-        <h5 class="details1__h5">Details</h5>
-        <p class="details1__p">{{ product.details }}</p>
-      </div>
-      <div class="description">
-        <h5 class="ddescription__h5">Description</h5>
-        <p class="description__p">{{ product.description }}</p>
-      </div>
-    </div>
-    <div class="line">
-      <h2 class="line__lineorange"><span></span></h2>
-    </div>
-    <div class="items">
-      <div class="comments">
-        
-        
-        </div>
-        
-      </div>
-    </div>
-  </div>-->
+  
 </template>
 
 <script>
@@ -290,7 +238,7 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
 }
 
 textarea {
-  width: 75%;
+  width: 100%;
   padding: 20px;
   margin-top: 20px;
   font-size: 0.9em;
