@@ -47,6 +47,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "../../scss/variables.scss";
+@import "../../scss/main.scss";
 h1 {
   font-family: SeoulNamsan CL;
   font-style: normal;

@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/home/Home.vue";
 
 
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -29,6 +30,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../components/product-detail/ProductDetail.vue")
   },
+  
   {
     name:"Product",
     path:"/product",

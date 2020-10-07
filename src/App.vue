@@ -62,7 +62,7 @@ export default {
   background-color: #455A6C;
   display: flex;
   align-items: center;
-  margin: 0 0 20px 0;
+  
 
 
   a {
