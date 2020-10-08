@@ -1,98 +1,32 @@
 <template>
   <div>
-    <div class="backtosearch">
-      <router-link to="/" class="router-link"
-        >Back to search results</router-link
-      >
-    </div>
-    <div class="container">
-      <div class="product-listing">
-        <div class="img-phone">
-          <img src=../../assets/images/phone.jpg alt="">
-        </div>
-      </div>
-      <div class="right-container">
-        <h1 class="right-container__title">{{ product.title }}</h1>
-        <h3 class="right-container__price">{{ product.price }}</h3>
-        <h5 class="right-container__listed">Listed 1 day ago in Christchurch, Canterbury</h5>
-
-        <button class="right-container__button-send-message" type="submit">
-          Message Seller
-        </button>
-
-        <div class="usercontainer">
-          <h4 class="usercontainer__sellerinfo">Seller Information</h4>
-          <h5 class="usercontainer__username">{{ product.username }}</h5>
-          <h5 class="usercontainer__userrating">{{ product.userrating }}</h5>
-          <div class="stars">
-            <img src="../../assets/images/star.png" alt="" />
-            <img src="../../assets/images/star.png" alt="" />
-
-            <img src="../../assets/images/star.png" alt="" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="details-container">
-      <div class="details1">
-        <h5 class="details1__h5">Details</h5>
-        <p class="details1__p">{{ product.details }}</p>
-      </div>
-      <div class="description">
-        <h5 class="description__h5">Description</h5>
-        <p class="description__p">{{ product.description }}</p>
-      </div>
-    </div>
-    
-    <div class="items">
-      <div class="comments">
-        <h2>Comments</h2>
-        <comment v-for="(comment, index) in comments" v-bind:key="index" :comment="comment"/>
-        <router-link to="/login"></router-link>
-        <div v-if="!loggedIn">
-          You need to
-          <router-link v-if="!loggedIn" class="router-link" to="/login"
-            >Login</router-link
-          >
-        </div>
-        <form
-          v-if="loggedIn"
-          v-on:submit.prevent="checkForm"
-          class="comments__input"
-        >
-          <div v-if="errors.length">
-            <ul v-for="(error, index) in errors" v-bind:key="index">
-              <li>{{ error }}</li>
-            </ul>
-          </div>
-          <input
-            v-model="comment.body"
-            type="text"
-            name="comment"
-            id="comment"
-          />
-          <input class="btn-comment" type="submit" value="Submit" />
-        </form>
-      </div>
-    </div>
-    <div class="line">
-      <h2 class="line__lineorange"><span></span></h2>
-    </div>
+   <section>
+     <div class="photo-container">
+       <img src="../../assets/images/phone.jpg">
+     </div>
+     <div class="details">
+       Details
+     </div>
+     <div class="comments">
+       Comments
+     </div>
+   </section>
   </div>
 </template>
 
 <script>
-import Comment from "../comment/Comment";
+// import Comment from "../comment/Comment";
 
 export default {
   name: "ProductDetail",
   components: {
-    comment: Comment,
-    similaritems:Similaritems,
+    // comment: Comment
   },
 
   data: function() {
     return {
+      readOnly: false,
+      maxLetters: 100,
       errors: [],
       loggedIn: "",
       product: {},
@@ -102,8 +36,34 @@ export default {
         body: "",
         product: null,
         user: null
+      },
+      dummyProduct: {
+        title: "Samsung Galaxy S10+ 128GB G975F Prism Black",
+        price: "10,000",
+        description: `LEARANCE PRICING!
+
+Condition: New
+1-day Warranty: 12 Months
+What's in the Box?
+
+    Samsung Galaxy Smartphone
+    Charging Plug 
+
+The result of 10 years of pioneering mobile firsts, the next generation of Galaxy has arrived - the phone that doesn't just stand out, it stands apart...
+
+The Most Immersive Display Yet: With on-screen security, and a Dynamic AMOLED that's easy on the eyes, there's virtually nothing to get in the way of your viewing. Not even the screen you're viewing it on.
+
+Ultrasonic Fingerprint Security: We've moved security from the back of the phone to the front, fusing the Ultrasonic Fingerprint directly into the screen.`,
       }
     };
+  },
+  computed: {
+    lengthOfComments: function() {
+      return this.comments.length;
+    },
+    letterCount: function() {
+      return 100 - this.comment.body.length;
+    }
   },
   methods: {
     checkForm: function(event) {
@@ -124,13 +84,13 @@ export default {
       this.$http
         .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
         .then(
-          (response) => {
+          response => {
             if (response.body) {
               this.getProductById();
               this.getComments();
             }
           },
-          (response) => {
+          response => {
             this.errors.push(response.body.message);
           }
         );
@@ -145,9 +105,11 @@ export default {
     },
     getComments: function() {
       const id = this.$route.params.productId;
-      this.$http.get(`${process.env.VUE_APP_API_URL}products/${id}/comments`).then(function(data) {
-        this.comments = data.body;
-      })
+      this.$http
+        .get(`${process.env.VUE_APP_API_URL}products/${id}/comments`)
+        .then(function(data) {
+          this.comments = data.body;
+        });
     }
   },
 
@@ -156,29 +118,66 @@ export default {
     (this.product = {}),
       (this.loggedIn = localStorage.loggedIn),
       this.getProductById();
-      this.getComments();
-  },
+    this.getComments();
+  }
 };
 </script>
 
 <style lang="scss">
-@import "../../scss/variables.scss";
-@import "../../scss/main.scss";
+@import "../../scss/variables";
+@import "../../scss/bulma";
 
-.items{
-width: 100%
-}
-.comments{
-width: 40%;
-border:3px solid $light-grey;
+* {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.btn-comment{
-  text-align: center;
-  border: 1px solid $secondary;
-  background-color: $secondary;
-  padding: 1rem;
-  border-radius: 3px $secondary; 
+section {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  grid-template-rows: 500px auto ;
+  grid-gap: 1em;
+  max-width: 1200px;
+  margin: auto;
+  padding: 1em;
+}
+
+.photo-container {
+  @include flex-direction(row);
+  justify-content: center;
+  background: $off-white;
+  width: 100%;
+  & img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.details {
+  grid-column: 2 / 3;
+  background: red
+}
+
+.comments {
+  grid-column: 1 / 2;
+  background: red;
+}
+
+//Mobile 
+@media (max-width: 700px) {
+
+  .photo-container {
+    grid-column: 1 / 3;
+  }
+
+  .comments {
+    grid-column: 1 / 3;
+    grid-row: 3;
+  }
+
+  .details {
+    grid-column: 1 / 3;
+    grid-row: 2;
+  }
 }
 
 </style>

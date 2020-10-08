@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>Welcome to the worlds most beautiful site</h1>
+    <h1>It's trade time baby.</h1>
     <h3>All listings</h3>
     <ul>
       <div class="category">
@@ -16,9 +16,6 @@ import ProductCard from "../product-card/ProductCard";
 
 export default {
   components: {
-    // "apple-listing-card": AppleListingCard,
-    // "samsung-listing-card": SamsungListingCard,
-    // "pc-listing-card": PcListingCard,
     "productCard": ProductCard
   },
   
@@ -48,19 +45,24 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import "../../scss/variables.scss";
-@import "../../scss/main.scss";
+
+.hello {
+  margin: 0 10%;;
+}
+
 h1 {
-  font-family: SeoulNamsan CL;
   font-style: normal;
   font-weight: normal;
-  font-size: 52px;
+  font-size: 42px;
   line-height: 52px;
+  margin-top:60px;
+  margin-bottom:40px;
 }
 h3 {
-  // margin-left: 7%;
-  padding-left: 10%;
-  text-align: left;
+  // display:inline;
   font-size: 24px;
+  text-transform: uppercase;
+  border-bottom: 1px solid;
 }
 ul {
   list-style-type: none;
@@ -75,8 +77,6 @@ a {
 }
 
 .category {
-  margin-left: 5%;
-  margin-right: 5%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -92,15 +92,10 @@ button {
 @media only screen and (max-width: 1150px) {
   .category {
     display: flex;
-    margin-left: 10%;
-    margin-right: 10%;
-  }
-  h3 {
-    margin-left: 15%;
   }
 }
 
-@media only screen and (max-width: 775px) {
+@media only screen and (max-width: 1028px) {
   .category {
     display: flex;
     flex-direction: row;
@@ -117,18 +112,12 @@ button {
   }
   h1 {
     text-align: center;
-    margin: 0;
-    font-size: 30px;
-    padding: 30px;
+    font-size: 34px;
+    // padding: 30px;
   }
   h3 {
-    text-transform: uppercase;
-    display: inline;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid;
-    // width: 50%;
+    display: flex;
+    justify-content:center;
   }
 }
 </style>

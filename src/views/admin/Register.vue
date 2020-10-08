@@ -1,38 +1,21 @@
 <template>
-  <div>
-    <h1>Register User</h1>
-
-    <form v-on:submit.prevent="checkForm">
-      <!-- error display -->
-      <div v-if="errors.length">
-        <p>
-          <b>Please correct the following this.errors:</b>
-        </p>
-        <ul v-for="(error, index) in errors" v-bind:key="index">
-          <li>{{error}}</li>
-        </ul>
-      </div>
-      <div class="input-field">
-        <label for="firstname">First Name</label>
-        <input v-model="user.firstname" type="text" name="firstname" id="firstname" />
-      </div>
-      <div class="input-field">
-        <label for="lastname">Last Name</label>
-        <input v-model="user.lastname" type="text" name="lastname" id="lastname" />
-      </div>
-      <div class="input-field">
-        <label for="username">Username</label>
-        <input v-model="user.username" type="text" name="username" id="username" />
-      </div>
-      <div class="input-field">
-        <label for="email">Email</label>
-        <input v-model="user.email" type="text" name="email" id="email" />
-      </div>
-      <div>
-        <input type="submit" value="Register" />
-      </div>
-    </form>
-  </div>
+  <section>
+      <form @submit.prevent="checkForm">
+        <b-field class="test" label="Firstname">
+          <b-input v-model="user.firstname" type="text" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-field class="test" label="Lastname">
+          <b-input v-model="user.lastname" type="text" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-field class="test" label="Username">
+          <b-input v-model="user.username" type="text" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-field class="test" label="Email">
+          <b-input v-model="user.email" type="email" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-button expanded tag="input" native-type="submit" type="is-primary" value="Submit input" />
+      </form>
+  </section>
 </template>
 
 <script>
@@ -92,8 +75,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../scss/variables";
+@import "../../scss/bulma";
 
 * {
   margin: 0;
@@ -101,15 +85,26 @@ export default {
   box-sizing: border-box;
 }
 
+section {
+  @include flex-direction(column);
+  align-items: center;
+  justify-content: center;
+  flex-basis: 100px;
+  max-width: 400px;
+  margin: auto;
+}
+
 h1 {
-  padding-bottom: 50px;
+  margin: 0 0 10px 0;
+  font-size: 1.4em;
 }
 
 form {
   @include flex-direction(column);
   // align-items: flex-start;
-  margin: auto;
-  max-width: 400px;
+  width: 100%;
+  padding: 10px;
+  
 }
 
 .input-field {
@@ -123,11 +118,5 @@ form {
     margin-bottom: 10px;
     width: 100%;
   }
-}
-
-input[type="submit"] {
-  margin-top: 5px;
-  padding: 10px;
-  width: 100%;
 }
 </style>
