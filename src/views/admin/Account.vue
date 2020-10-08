@@ -8,12 +8,12 @@
         <li class="edit-title">{{product.title}}</li>
 
         <!-- EDIT BUTTON -->
-        <div class="product__edit">
+        <div class="product-edit">
           <router-link
-            class="edit"
+            class="product-edit__edit"
             v-bind:to="{ name: 'Edit', params: { productId: product._id} }"
           >Edit</router-link>
-          <a href class="delete" v-on:click.prevent="deleteProduct(product._id)">Delete</a>
+          <a href class="product-edit__delete-icon" v-on:click.prevent="deleteProduct(product._id)">Delete</a>
         </div>
 
       </div>
@@ -60,8 +60,14 @@ export default {
 
 <style lang="scss">
 
+h2 {
+  padding: 25px;
+  font-weight: bold;
+  font-size:40px;
+}
+
 .edit-wrapper {
-  margin: 10%;
+  margin: 5% 10% 10% 10%;
 }
 .edit-active {
   margin-right:15px;
@@ -78,9 +84,19 @@ export default {
   margin-top: 10px;
   padding: 9px;
   border-radius:3px;
+}
+.product-edit {
+    display: flex;
+    position:absolute;
+    right: 12%;
+    color:#EB9836;
 
   &__edit {
-    display: flex;
+
+  }
+
+  &__delete-icon {
+    margin-left: 10px;
   }
 }
 .router-link2 {
@@ -97,43 +113,5 @@ li {
   list-style: none;
 }
 
-@media only screen and (max-width: 1150px) {
-  .edit {
-    position:absolute;
-    left: 80%;
-    color: #333;
-    }
-  .delete {
-    position:absolute;
-    left: 84%;
-    color: #333;
-  }
-}
-
-@media only screen and (max-width: 855px) {
-  .edit {
-  position:absolute;
-  left: 74%;
-  color: #333;
-}
-.delete {
-  position:absolute;
-  left: 80%;
-  color: #333;
-}
-}
-
-@media only screen and (max-width: 550px) {
-  .edit {
-  position:absolute;
-  left: 68%;
-  color: #333;
-}
-.delete {
-  position:absolute;
-  left: 76%;
-  color: #333;
-}
-}
 
 </style>

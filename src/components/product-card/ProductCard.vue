@@ -20,7 +20,7 @@
           </div>
 
           <!-- Listing price -->
-          <h2 class="category__allPrice">{{ product.price }}</h2>
+          <h5 class="category__allPrice">{{ product.price }}</h5>
         </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
 <style lang="scss">
 
 .router-link1 {
-  display: block;
+  display:inline-block;
   font-weight:bold;
   color: #333;
   text-decoration: none;
@@ -45,19 +45,18 @@ export default {
   &:hover {
     color: #f6f6f6;
     background-color:#EB9836;
-    padding:10px;
+    width:100%;
   }
 }
 .category {
   text-align: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: flex-start;
   justify-content: space-around;
 
   &__allBox {
     margin: 10px;
-    width: 23%;
-    height: 100%;
+    width: 250px;
     background: #ffffff;
     border: 1px solid #c4c4c4;
 
@@ -98,52 +97,10 @@ export default {
   }
   &__allPrice {
     display: flex;
-    flex-direction: row-reverse;
-    margin-right: 20px;
-    padding: 8px;
-  }
-  @media only screen and (max-width: 1266px) {
-    .category {
-      display: flex;
-      flex-direction: column;
-      &__allBox {
-        width: 250px;
-        height: 100%;
-      }
-    }
-  }
-  @media only screen and (max-width: 1060px) {
-    .category {
-      display: flex;
-      flex-direction: column;
-      &__allBox {
-        width: 250px;
-        height: 100%;
-      }
-    }
-  }
-  @media only screen and (max-width: 627px) {
-    .category {
-      &__allBox {
-        width: 250px;
-        height: 100%;
-      }
-    }
-  }
-  @media only screen and (max-width: 576px) {
-    .category {
-      &__allBox {
-        width: 245px;
-      }
-    }
-  }
-  @media only screen and (max-width: 537px) {
-    .category {
-      &__allBox {
-        width: 245px;
-        height: 100%;
-      }
-    }
+    justify-content: center;
+    padding-bottom: 8px;
+    font-size:32px;
+    font-weight: bold;
   }
 }
 </style>
