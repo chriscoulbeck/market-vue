@@ -31,4 +31,13 @@ export default {
 .container {
   @include flex-direction(column);
 }
+
+.media-content {
+  width: 100%;
+}
+
+p {
+  width: 100%;
+  overflow-wrap: break-word;
+}
 </style>

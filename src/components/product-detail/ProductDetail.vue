@@ -1,26 +1,66 @@
 <template>
   <div>
-   <section>
-     <div class="photo-container">
-       <img src="../../assets/images/phone.jpg">
-     </div>
-     <div class="details">
-       Details
-     </div>
-     <div class="comments">
-       Comments
-     </div>
-   </section>
+    <!-- Flexbox -->
+    <section>
+      <div class="row-1">
+        <div class="photo-container">
+          <img src="../../assets/images/phone.jpg" />
+        </div>
+        <div class="details">
+          <h3 class="title is-3">{{dummyProduct.title}}</h3>
+          <h4 class="title is-4">Product price: {{dummyProduct.price}}</h4>
+          <button class="button is-fullwidth">Message Seller</button>
+        </div>
+      </div>
+      <div class="comments">
+        <h5 class="title is-5">Comments ({{ lengthOfComments }})</h5>
+        <comment
+          class="comment"
+          v-for="(comment, index) in comments"
+          v-bind:key="index"
+          :comment="comment"
+        />
+        <form v-if="loggedIn" v-on:submit.prevent="checkForm">
+          <!-- Input -->
+          <article class="media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="https://bulma.io/images/placeholders/128x128.png" />
+              </p>
+            </figure>
+            <div class="media-right">
+              <textarea
+                @keydown="errors = []"
+                v-model="comment.body"
+                class="textarea"
+                placeholder="Add a comment..."
+              ></textarea>
+              <!-- Error  Handling -->
+              <div class="comment-valid">
+                <div class="comment-valid__text" v-if="errors.length">
+                  <ul v-for="(error, index) in errors" v-bind:key="index">
+                    <li class="error">{{ error }}</li>
+                  </ul>
+                </div>
+                <div class="comment-valid__text" v-if="!errors.length">{{maxLetters - comment.body.length}} characters remaining</div>
+                <!-- Submit -->
+                <input type="submit" class="button is-primary" value="Post Comment" />
+              </div>
+            </div>
+          </article>
+        </form>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
-// import Comment from "../comment/Comment";
+import Comment from "../comment/Comment";
 
 export default {
   name: "ProductDetail",
   components: {
-    // comment: Comment
+    comment: Comment
   },
 
   data: function() {
@@ -53,9 +93,18 @@ The result of 10 years of pioneering mobile firsts, the next generation of Galax
 
 The Most Immersive Display Yet: With on-screen security, and a Dynamic AMOLED that's easy on the eyes, there's virtually nothing to get in the way of your viewing. Not even the screen you're viewing it on.
 
-Ultrasonic Fingerprint Security: We've moved security from the back of the phone to the front, fusing the Ultrasonic Fingerprint directly into the screen.`,
+Ultrasonic Fingerprint Security: We've moved security from the back of the phone to the front, fusing the Ultrasonic Fingerprint directly into the screen.`
       }
     };
+  },
+  watch: {
+    errors: function() {
+      if (this.errors.length) {
+        document.querySelector("textarea").classList.add("is-danger");
+      } else {
+        document.querySelector("textarea").classList.remove("is-danger");
+      }
+    }
   },
   computed: {
     lengthOfComments: function() {
@@ -132,20 +181,25 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
 }
 
 section {
-  display: grid;
-  grid-template-columns: 1.7fr 1fr;
-  grid-template-rows: 500px auto ;
-  grid-gap: 1em;
   max-width: 1200px;
   margin: auto;
   padding: 1em;
+}
+
+.row-1 {
+  @include flex-direction(row);
+}
+
+.error {
+  font-size: 1em;
+  color: #f14668;
 }
 
 .photo-container {
   @include flex-direction(row);
   justify-content: center;
   background: $off-white;
-  width: 100%;
+  flex: 2;
   & img {
     height: 100%;
     object-fit: cover;
@@ -153,17 +207,48 @@ section {
 }
 
 .details {
+  flex: 1;
   grid-column: 2 / 3;
-  background: red
+  padding: 25px;
+  & button {
+    padding: 25px 0;
+  }
 }
 
 .comments {
   grid-column: 1 / 2;
-  background: red;
+  padding: 25px;
 }
 
-//Mobile 
+.comment {
+  width: 100%;
+}
+
+.comment-valid {
+  @include flex-direction(row);
+  justify-content: space-between;
+  margin-top: 10px;
+  &__text {
+    margin: 5px 0
+  }
+  & input[type=submit] {
+    margin: 5px 0
+  }
+}
+
+.media {
+  @include flex-direction(row);
+  margin-top: 25px;
+}
+
+.media-right {
+  flex: 1;
+}
+//Mobile
 @media (max-width: 700px) {
+  .row-1 {
+    flex-direction: column;
+  }
 
   .photo-container {
     grid-column: 1 / 3;
@@ -178,6 +263,9 @@ section {
     grid-column: 1 / 3;
     grid-row: 2;
   }
-}
 
+  .comment-valid {
+    flex-direction: column;
+  }
+}
 </style>
