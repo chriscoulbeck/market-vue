@@ -1,6 +1,5 @@
 <template>
   <section>
-    <h1>Register User</h1>
       <form @submit.prevent="checkForm">
         <b-field class="test" label="Firstname">
           <b-input v-model="user.firstname" type="text" placeholder="Your email" required></b-input>
