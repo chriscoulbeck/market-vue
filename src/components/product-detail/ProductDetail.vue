@@ -1,72 +1,26 @@
 <template>
   <div>
-    <section class="section row-1">
-      <div class="columns">
-        <div class="column is-two-thirds-desktop is-full-mobile listing-photos">
-          <img src=../../assets/images/phone.jpg alt="">
-        </div>
-      </div>
-    </section>
-    <section class="section row-2">
-      <div class="column is-two-thirds-desktop is-full-mobile">
-        <div class="container">
-          <h5 class="title is-5">Description</h5>
-          <p class="is-small">{{ dummyProduct.description }}</p>
-        </div>
-        <div class="container">
-          <h5 class="title is-5">Comments ({{ lengthOfComments }})</h5>
-          <comment
-            v-for="(comment, index) in comments"
-            v-bind:key="index"
-            :comment="comment"
-          />
-        </div>
-        <form v-if="loggedIn" v-on:submit.prevent="checkForm">
-          <!-- Error  Handling -->
-          <div v-if="errors.length">
-            <ul v-for="(error, index) in errors" v-bind:key="index">
-              <li>{{ error }}</li>
-            </ul>
-          </div>
-          <!-- Input -->
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/128x128.png" />
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="field">
-                <p class="control">
-                  <textarea
-                    v-model="comment.body"
-                    class="textarea"
-                    placeholder="Add a comment..."
-                  ></textarea>
-                </p>
-              </div>
-              <nav class="level">
-                <div class="level-left">
-                  <div class="level-item">
-                    <input type="submit" class="button is-primary" Value="Post Comment">
-                  </div>
-                </div>
-              </nav>
-            </div>
-          </article>
-        </form>
-      </div>
-    </section>
+   <section>
+     <div class="photo-container">
+       <img src="../../assets/images/phone.jpg">
+     </div>
+     <div class="details">
+       Details
+     </div>
+     <div class="comments">
+       Comments
+     </div>
+   </section>
   </div>
 </template>
 
 <script>
-import Comment from "../comment/Comment";
+// import Comment from "../comment/Comment";
 
 export default {
   name: "ProductDetail",
   components: {
-    comment: Comment
+    // comment: Comment
   },
 
   data: function() {
@@ -177,26 +131,53 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.section {
-  width: 1100px;
+section {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  grid-template-rows: 500px auto ;
+  grid-gap: 1em;
+  max-width: 1200px;
   margin: auto;
+  padding: 1em;
 }
 
-.listing-photos {
+.photo-container {
   @include flex-direction(row);
   justify-content: center;
-  background: $light-grey;
+  background: $off-white;
+  width: 100%;
   & img {
+    height: 100%;
     object-fit: cover;
   }
 }
 
-.button {
-  width: 150px;
+.details {
+  grid-column: 2 / 3;
+  background: red
 }
 
-.container {
-  margin: 0;
-  width: 100%;
+.comments {
+  grid-column: 1 / 2;
+  background: red;
 }
+
+//Mobile 
+@media (max-width: 700px) {
+
+  .photo-container {
+    grid-column: 1 / 3;
+  }
+
+  .comments {
+    grid-column: 1 / 3;
+    grid-row: 3;
+  }
+
+  .details {
+    grid-column: 1 / 3;
+    grid-row: 2;
+  }
+}
+
 </style>
