@@ -1,24 +1,13 @@
 <template>
-  <div>
-    <h1>Log In</h1>
-
-    <form v-on:submit.prevent="checkForm">
-      <!-- error display, this iterates through all the errors present in the error display and shows them. If there are none it doesn't render at all. -->
-      <div v-if="errors.length">
-        <ul v-for="(error, index) in errors" v-bind:key="index">
-          <li>{{error}}</li>
-        </ul>
-      </div>
-      <!-- this is the email field, which is bound to the email property in the data object via v-model -->
-      <div class="input-field">
-        <label for="email">Email</label>
-        <input v-model="user.email" type="text" name="email" id="email" />
-      </div>
-      <div>
-        <input type="submit" value="Log In" />
-      </div>
-      <router-link class="router-link" to="/register">Register</router-link>
-    </form>
+  <div class="section">
+    <div class="container">
+      <form @submit.prevent="checkForm">
+        <b-field class="test" label="Log in">
+          <b-input v-model="user.email" type="email" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-button expanded tag="input" native-type="submit" type="is-primary" value="Submit input" />
+      </form>
+    </div>
   </div>
 </template>
 
@@ -75,34 +64,23 @@ export default {
 
 <style lang="scss">
 @import "../../scss/variables";
+@import "../../scss/bulma";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+h1 {
+  display: inline-block;
 }
 
-form {
+.section {
+  margin: auto;
+}
+
+.container {
+  flex-basis: 100px;
   max-width: 400px;
   margin: auto;
 }
 
-.input-field {
+form {
   @include flex-direction(column);
-  align-items: flex-start;
-  & label {
-    padding-bottom: 2px;
-  }
-  & input {
-    padding: 7px 0;
-    margin-bottom: 10px;
-    width: 100%;
-  }
-}
-
-input[type="submit"] {
-  margin-top: 5px;
-  padding: 10px;
-  width: 100%;
 }
 </style>
