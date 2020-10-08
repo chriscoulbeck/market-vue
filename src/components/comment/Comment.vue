@@ -1,8 +1,20 @@
 <template>
-  <div class="comment">
-      <p class="comment__body">{{comment.body}}</p>
-      <p class="comment__user">{{comment.user}}</p>
+  <article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="https://bulma.io/images/placeholders/128x128.png">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>John Smith</strong> <small>{{comment.user}}</small> <small>31m</small>
+        <br>
+        {{comment.body}}
+      </p>
+    </div>
   </div>
+</article>
 </template>
 
 <script>
@@ -13,5 +25,10 @@ export default {
 </script>
 
 <style lang="scss" >
-@import "./scss/main.scss";
+@import "../../scss/variables";
+@import "../../scss/bulma";
+
+.container {
+  @include flex-direction(column);
+}
 </style>
