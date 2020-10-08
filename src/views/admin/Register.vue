@@ -1,53 +1,21 @@
 <template>
   <section>
-    <div class="form-wrapper">
-      <h1>Register User</h1>
-      <form v-on:submit.prevent="checkForm">
-        <!-- error display -->
-        <div v-if="errors.length">
-          <p>
-            <b>Please correct the following this.errors:</b>
-          </p>
-          <ul v-for="(error, index) in errors" v-bind:key="index">
-            <li>{{ error }}</li>
-          </ul>
-        </div>
-        <div class="input-field">
-          <label for="firstname">First Name</label>
-          <input
-            v-model="user.firstname"
-            type="text"
-            name="firstname"
-            id="firstname"
-          />
-        </div>
-        <div class="input-field">
-          <label for="lastname">Last Name</label>
-          <input
-            v-model="user.lastname"
-            type="text"
-            name="lastname"
-            id="lastname"
-          />
-        </div>
-        <div class="input-field">
-          <label for="username">Username</label>
-          <input
-            v-model="user.username"
-            type="text"
-            name="username"
-            id="username"
-          />
-        </div>
-        <div class="input-field">
-          <label for="email">Email</label>
-          <input v-model="user.email" type="text" name="email" id="email" />
-        </div>
-        <div>
-          <input type="submit" value="Register" />
-        </div>
+    <h1>Register User</h1>
+      <form @submit.prevent="checkForm">
+        <b-field class="test" label="Firstname">
+          <b-input v-model="user.firstname" type="text" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-field class="test" label="Lastname">
+          <b-input v-model="user.lastname" type="text" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-field class="test" label="Username">
+          <b-input v-model="user.username" type="text" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-field class="test" label="Email">
+          <b-input v-model="user.email" type="email" placeholder="Your email" required></b-input>
+        </b-field>
+        <b-button expanded tag="input" native-type="submit" type="is-primary" value="Submit input" />
       </form>
-    </div>
   </section>
 </template>
 
@@ -60,9 +28,9 @@ export default {
         firstname: "",
         lastname: "",
         username: "",
-        email: "",
+        email: ""
       },
-      errors: [],
+      errors: []
     };
   },
   methods: {
@@ -90,7 +58,7 @@ export default {
         .post(`${process.env.VUE_APP_API_URL}users`, user)
         // .then takes two params, a success callback and an error callback
         .then(
-          (response) => {
+          response => {
             if (response.body) {
               localStorage.loggedIn = "yes";
               localStorage.user = user.email;
@@ -99,22 +67,32 @@ export default {
               this.$router.push({ path: "/" });
             }
           },
-          (response) => {
+          response => {
             this.errors.push(response.body.message);
           }
         );
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../../scss/variables";
+@import "../../scss/bulma";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+section {
+  @include flex-direction(column);
+  align-items: center;
+  justify-content: center;
+  flex-basis: 100px;
+  max-width: 400px;
+  margin: auto;
 }
 
 h1 {
@@ -125,6 +103,9 @@ h1 {
 form {
   @include flex-direction(column);
   // align-items: flex-start;
+  width: 100%;
+  padding: 10px;
+  
 }
 
 .input-field {
@@ -138,11 +119,5 @@ form {
     margin-bottom: 10px;
     width: 100%;
   }
-}
-
-input[type="submit"] {
-  margin-top: 5px;
-  padding: 10px;
-  width: 100%;
 }
 </style>
