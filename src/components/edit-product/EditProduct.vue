@@ -1,25 +1,33 @@
 <template>
 <!-- Update listing -->
   <div class="title-wrapper">
-    <h1>UPDATE YOUR LISTING DETAILS</h1>
+    <h2>UPDATE YOUR LISTING DETAILS</h2>
       <form class="title-form" v-on:submit.prevent="checkForm">
       <div class="title-flex">
         <!-- Listing title -->
         <label class="title" for="title">Listing title</label>
-        <input v-model="product.title" maxlength="16" type="text" name="title" id="title" />
+        <input v-model="product.title" maxlength="16" placeholder="Samsung Galaxy S7+" type="text" name="title" id="titles" required/>
+
+        <!-- Listing location -->
+        <label class="title" for="details">Listing location</label>
+        <input v-model="product.location" placeholder="Christchurch, Upper Riccarton" maxlength="20" type="text" name="location" id="titles" required />
+
+        <!-- Listing date -->
+        <label class="title" for="details">Listing date</label>
+        <input v-model="product.date" placeholder="01/01/2020" maxlength="26" type="text" name="date" id="titles" required />
 
         <!-- Listing details -->
         <label class="title" for="details">Product details</label>
-        <input v-model="product.details" maxlength="26" type="text" name="details" id="title" />
+        <input v-model="product.details" maxlength="26" type="text" name="details" id="titles" required />
 
         <!-- Listing description -->
         <label class="title" for="description"> Description </label>
-        <textarea  v-model="product.description" maxlength="500" type="details" name="description" id="titleD" >
+        <textarea  v-model="product.description" maxlength="500" type="details" name="description" id="titleD" required >
         </textarea>
 
         <!-- Listing price -->
         <label class="title" for="price"> Price </label>
-        <input v-model="product.price" maxlength="8" placeholder="$" type="text" name="price" id="title" />
+        <input v-model="product.price" maxlength="8" placeholder="$" type="text" name="price" id="titles" />
 
         <!-- Update button -->
         <button class="update-button">Update</button>
@@ -37,6 +45,8 @@ export default {
         description: null,
         price: null,
         details: null,
+        location: null,
+        date: null,
       }
     };
   },
@@ -75,8 +85,12 @@ export default {
 
 <style lang="scss">
 
-h1 {
+h2 {
+  margin-top:20px;
+  line-height: 2.7rem;
   padding: 25px;
+  font-weight: bold;
+  font-size:40px;
 }
 
 .title-wrapper {
@@ -84,35 +98,34 @@ h1 {
 }
 
 .title-form {
-  background-color: #E3E3E3;
+  background-color: #E6E7E8;
   padding: 9px;
-  border-radius:3px;
+  border-radius:6px;
 }
 .title-flex {
   display: flex;
   flex-direction: column;
 }
 .title {
-  margin: 25px 6% 2px;
+  font-size: 24px;
+  margin: 50px 6%;
   font-weight: bold;
 }
-#title {
-  margin: 11px 6%;
-  border: none;
+#titles {
+  margin: 1px 6% !important;
   padding: 5px;
 }
 #titleD {
 resize: none;
 height: 100px;
 margin: 11px 6%;
-border: none;
 padding: 10px;
 }
 
 .update-button {
   width: 118px;
   height: 48px;
-  margin: 11px 6%;
+  margin: 50px 6%;
   border: none;
   padding: 5px;
   background-color: #EB9836;
