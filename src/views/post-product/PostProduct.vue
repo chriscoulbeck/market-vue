@@ -24,13 +24,13 @@
           </div>
       </div>
       <div class="btn-go-back">
-        <button class="btn-go-back-list-an-item">Go Back</button>
+      <router-link class="btn-go-back-list-an-item" v-bind:to="'/'">Go Back</router-link>
       </div>
     </div>
     <div class="container-item">
       <div class="container-item-wrapper">
     <div class="title-post-item">
-      <h1>Post a New Item</h1>
+      <h1 class="title-post-item__h1">Post a New Item</h1>
     </div>
     <form v-on:submit.prevent="checkForm" class="form-post-item">
       <div class="inputfields">
@@ -135,10 +135,16 @@ display: flex;
   width: 40%
 }
 .title-post-item{
-  margin:2rem 0;
-  text-align: start;
+  margin: 1.5rem 0;
+  
+&__h1{
+  font-weight: bold;
+  font-size: 1.5rem
 }
-
+}
+.inputfields{
+  text-align: center;
+}
 .input-field-title{
 width: 100%;
 justify-content: center;
@@ -219,7 +225,15 @@ background-color: $secondary;
   font-size: 0.6rem;
   cursor: pointer;
   font-weight: bold;
+  text-decoration: none
 }
+.btn-go-back-list-an-item:hover{
+text-decoration: none;
+ color: white;
+background-color: #ffb257;
+border: 3px solid #ffb257;
+}
+
 .btn-post{
   background-color: $secondary;
   border: 3px solid $secondary;
@@ -229,6 +243,7 @@ background-color: $secondary;
   cursor: pointer;
   font-weight: bold;
 }
+
 .sub-header{
   background-color: $light-grey;
 padding: 20px;
@@ -244,8 +259,6 @@ padding: 20px;
   &__myaccount{
         margin-right: 0.5rem;
             margin-left: 0.5rem;
-
-
   }
   &__titleitem{
     margin-left: 0.5rem;
@@ -253,39 +266,19 @@ padding: 20px;
 }
 
 
-
-
-
 //-------------------------------------------------------------
 
-@media all and (min-width: 1025px) {
- 
-}
-@media all and (max-width: 1024px) {
- 
-}
-@media all and (min-width: 769px) and (max-width: 1024px) {
-
-}
-@media all and (max-width: 980px) {
- 
-}
 @media all and (max-width: 768px) {
 .container-item-wrapper{
   width: 100%;
   margin: 2rem;
 }
 }
-@media all and (min-width: 480px) and (max-width: 768px) {
-}
-@media all and (max-width: 479px) {
- 
 
+@media all and (max-width: 479px) {
 .container-item-wrapper{
  margin: 2rem;
   width: 100%
 }
-
 }
-
 </style>
