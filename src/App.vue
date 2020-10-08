@@ -4,7 +4,7 @@
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
           <img
-            src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
+            src="./assets/images/logo.png"
             alt="Lightweight UI components for Vue.js based on Bulma"
           />
         </b-navbar-item>
@@ -17,7 +17,7 @@
             <router-link v-if="!loggedIn" class="router-link" to="/login">Log in</router-link>
             <router-link v-if="loggedIn" class="router-link" to="/post">List Item</router-link>
             <router-link v-if="loggedIn" class="router-link" to="/account">My Items</router-link>
-            <a href="#" v-if="loggedIn" @click="logOutUser">Log out</a>
+            <a class="logout" href="#" v-if="loggedIn" @click="logOutUser">Log out</a>
           </div>
         </b-navbar-item>
       </template>
@@ -64,6 +64,17 @@ export default {
   box-sizing: border-box;
 }
 
+.navbar-menu {
+  background-color: $primary-shade;
+  height: 60px;
+}
+
+.navbar-brand {
+  background-color: $primary-shade;
+  height: 60px;
+  padding-left: 15px;
+}
+
 #app {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -80,18 +91,22 @@ export default {
   font-size: 0.8em;
 }
 
-a {
+.logout {
+  color: $secondary;
   margin: 0 10px;
   &:hover {
     text-decoration: underline;
+    color: $secondary-tint;
   }
 }
 
 .router-link {
   margin: 0 10px;
   font-weight: lighter;
+  color: $off-white;
   &:hover {
     text-decoration: underline;
+    color: $secondary-tint;
   }
 }
 
@@ -104,8 +119,9 @@ a {
   align-items: center;
   padding: 0 50px;
 
-  a {
+  .logout {
     text-decoration: none;
+    color: $off-white;
 
     &.router-link-exact-active {
       color: #42b983;
@@ -127,6 +143,10 @@ a {
 .mobile {
   display: flex;
 }
+.burger {
+  color: $light-grey !important;
+  height: 3.7rem !important;
+}
 
 // MEDIA QUERIES
 @media (max-width: 1018px) {
@@ -137,5 +157,17 @@ a {
     flex-direction: column;
     align-items: flex-start;
   }
+  .router-link {
+  margin: 2px 10px;
+  font-weight: lighter;
+  color: $primary-shade;
+  &:hover {
+    text-decoration: underline;
+    color: $secondary-tint;
+  }
+}
+.navbar-menu {
+  height: 110px !important;
+}
 }
 </style>
