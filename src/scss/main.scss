@@ -1,6 +1,7 @@
 $main-colour: #455a6c;
 $secondary-colour: #eb9836;
 $thrid-colour: #f3f3f3;
+$background-color: #E3E3E3;
 
 * {
  margin: 0;
@@ -119,6 +120,10 @@ margin-top: 4rem;
 .similar-items {
  width: 45%;
 }
+
+.navbar-burger {
+    color: #f6f6f6;
+  }
 
 //-------------------------------------------------------------
 
