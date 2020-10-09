@@ -2,6 +2,7 @@
   <div>
     <!-- Flexbox -->
     <section>
+      <router-link to="/">Back</router-link>
       <div class="row-1">
         <div class="photo-container">
           <img src="../../assets/images/phone.jpg" />
@@ -135,6 +136,7 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
         .then(
           response => {
             if (response.body) {
+              this.comment.body = "";
               this.getProductById();
               this.getComments();
             }
