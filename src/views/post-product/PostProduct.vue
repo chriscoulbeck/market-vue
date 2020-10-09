@@ -6,18 +6,18 @@
       <h5>TechHeadsNZ</h5>
     </div>
     <div class="sub-header__img1">
-      <img src="../../assets/images/<.png" alt="">
+      <!-- <img src="../../assets/images/<.png" alt=""> -->
      
-       <img src="../../assets/images/<.png" alt="">
+       <!-- <img src="../../assets/images/<.png" alt=""> -->
  </div>
      <div class="sub-header__myaccount">
 
       <h5>My Account</h5>
      </div>
     <div class="sub-header__img2">
-      <img src="../../assets/images/<.png" alt="">
+      <!-- <img src="../../assets/images/<.png" alt=""> -->
    
-       <img src="../../assets/images/<.png" alt="">
+       <!-- <img src="../../assets/images/<.png" alt=""> -->
     </div>
           <div class="sub-header__titleitem">
       <h5>List an Item</h5>
