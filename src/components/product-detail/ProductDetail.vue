@@ -23,12 +23,12 @@
         />
         <div>
           <h6 v-if="!loggedIn" @click="logModal = true">Log In</h6>
-          <div v-bind:class="{'is-active': logModal}" class="modal">
+          <div v-if="!loggedIn" v-bind:class="{'is-active': logModal}" class="modal">
             <div @click="logModal = false" class="modal-background"></div>
             <div class="modal-content">
               <!-- Any other Bulma elements you want -->
               <div class="box">
-                <h6>Log In</h6>
+                <login/>
               </div>
             </div>
             <button @click="logModal = false" class="modal-close is-large" aria-label="close"></button>
@@ -76,15 +76,19 @@
 
 <script>
 import Comment from "../comment/Comment";
+import Login from "../../views/admin/Login";
+import EventBus from "../../eventBus";
 
 export default {
   name: "ProductDetail",
   components: {
     comment: Comment,
+    login: Login,
   },
 
   data: function() {
     return {
+      canMessage: false,
       logModal: false,
       readOnly: false,
       maxLetters: 100,
@@ -118,6 +122,14 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
       },
     };
   },
+  watch: {
+    loggedIn: function() {
+      if (this.loggedIn) {
+        this.logModal = false;
+        console.log(this.logModal);
+      }
+    }
+  },
   computed: {
     lengthOfComments: function() {
       return this.comments.length;
@@ -127,6 +139,9 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
     },
   },
   methods: {
+    canMessageFunc() {
+      this.canMessage = true;
+    },
     checkForm: function(event) {
       event.preventDefault();
       this.errors = [];
@@ -181,7 +196,19 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
       (this.loggedIn = localStorage.loggedIn),
       this.getProductById();
     this.getComments();
-  },
+    EventBus.$on("$loggedIn", () => {
+      localStorage.loggedIn = "yes";
+      this.loggedIn = localStorage.loggedIn;
+      this.id = localStorage.username;
+      console.log(this.loggedIn);
+    });
+    EventBus.$on("$loggedOut", () => {
+      localStorage.loggedIn = "";
+      this.loggedIn = localStorage.loggedIn;
+      this.id = localStorage.username;
+      console.log(this.loggedIn);
+    });
+  }
 };
 </script>
 
@@ -197,6 +224,10 @@ section {
   max-width: 1200px;
   margin: auto;
   padding: 1em;
+}
+
+.not-visible {
+  display: none;
 }
 
 .row-1 {
