@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <div class="container">
+    <div class="container-1">
       <form @submit.prevent="checkForm">
         <b-field class="test" label="Log in">
           <b-input v-model="user.email" type="email" placeholder="Your email" required></b-input>
@@ -77,7 +77,7 @@ h1 {
   margin: auto;
 }
 
-.container {
+.container-1 {
   flex-basis: 100px;
   max-width: 400px;
   margin: auto;
