@@ -40,7 +40,7 @@ export default {
   color: #333;
   text-decoration: none;
   width: 100%;
-  padding-top: 10px;
+  padding: 10px;
   font-size: 20px;
   &:hover {
     color: #f6f6f6;
