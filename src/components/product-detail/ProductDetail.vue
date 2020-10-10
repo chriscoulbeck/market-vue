@@ -101,6 +101,8 @@ export default {
         body: "",
         product: null,
         user: null,
+        firstname: "",
+        lastname: ""
       },
       dummyProduct: {
         title: "Samsung Galaxy S10+ 128GB G975F Prism Black",
@@ -126,7 +128,6 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
     loggedIn: function() {
       if (this.loggedIn) {
         this.logModal = false;
-        console.log(this.logModal);
       }
     }
   },
@@ -139,9 +140,6 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
     },
   },
   methods: {
-    canMessageFunc() {
-      this.canMessage = true;
-    },
     checkForm: function(event) {
       event.preventDefault();
       this.errors = [];
@@ -157,6 +155,9 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
       const id = this.$route.params.productId;
       this.comment.product = id;
       this.comment.user = localStorage.username;
+      this.comment.firstname = localStorage.firstname;
+      this.comment.lastname = localStorage.lastname;
+      console.log(this.comment.firstname)
       this.$http
         .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
         .then(
@@ -200,13 +201,11 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
       localStorage.loggedIn = "yes";
       this.loggedIn = localStorage.loggedIn;
       this.id = localStorage.username;
-      console.log(this.loggedIn);
     });
     EventBus.$on("$loggedOut", () => {
       localStorage.loggedIn = "";
       this.loggedIn = localStorage.loggedIn;
       this.id = localStorage.username;
-      console.log(this.loggedIn);
     });
   }
 };
@@ -265,7 +264,7 @@ section {
 }
 
 .comments {
-  grid-column: 1 / 2;
+  width: 66%;
   padding: 25px;
 }
 
@@ -315,6 +314,10 @@ section {
 
   .comment-valid {
     flex-direction: column;
+  }
+
+  .comments {
+    width: 100%;
   }
 }
 </style>
