@@ -8,14 +8,6 @@
         <label class="title" for="title">Listing title</label>
         <input v-model="product.title" maxlength="16" placeholder="Samsung Galaxy S7+" type="text" name="title" id="titles" required/>
 
-        <!-- Listing location -->
-        <label class="title" for="details">Listing location</label>
-        <input v-model="product.location" placeholder="Christchurch, Upper Riccarton" maxlength="20" type="text" name="location" id="titles" required />
-
-        <!-- Listing date -->
-        <label class="title" for="details">Listing date</label>
-        <input v-model="product.date" placeholder="01/01/2020" maxlength="26" type="text" name="date" id="titles" required />
-
         <!-- Listing details -->
         <label class="title" for="details">Product details</label>
         <input v-model="product.details" maxlength="26" type="text" name="details" id="titles" required />
