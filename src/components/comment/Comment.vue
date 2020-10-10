@@ -8,7 +8,7 @@
   <div class="media-content">
     <div class="content">
       <p>
-        <strong>John Smith</strong> <small>{{comment.user}}</small> <small>31m</small>
+        <strong>{{comment.firstname}} {{comment.lastname}}</strong> <small>{{comment.user}}</small> <small>31m</small>
         <br>
         {{comment.body}}
       </p>
