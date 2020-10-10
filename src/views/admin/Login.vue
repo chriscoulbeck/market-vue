@@ -16,6 +16,7 @@ import EventBus from "../../eventBus";
 // the event bus is imported here so that this file knows about it and can listen to or emit events on the bus
 // import EventBus from "../../eventBus.js";
 export default {
+  name: "login",
   data: function() {
     return {
       user: {
@@ -49,7 +50,9 @@ export default {
             // if the user is returned due to a valid email, and once the variables are saved in local storage, the eventbus is instructed to emit an event, which any other components can listen for and react too
             // EventBus.$emit("$loggedIn");
             EventBus.$emit("$loggedIn");
-            this.$router.push({ path: "/" });
+            if (this.$route.path == "/login") {
+              this.$router.push({ path: "/" });
+            }
           }
         },
         function(response) {

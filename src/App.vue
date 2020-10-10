@@ -40,7 +40,8 @@ export default {
       localStorage.loggedIn = "";
       //Local Storage can only set strings
       this.loggedIn = localStorage.loggedIn;
-      this.$router.push({ path: "/" });
+      EventBus.$emit("$loggedOut");
+
     }
   },
   created() {
