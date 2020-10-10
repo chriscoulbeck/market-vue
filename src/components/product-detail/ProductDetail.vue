@@ -8,10 +8,14 @@
           <img src="../../assets/images/phone.jpg" />
         </div>
         <div class="details">
-          <h3 class="title is-3">{{ dummyProduct.title }}</h3>
-          <h4 class="title is-4">${{ dummyProduct.price }}</h4>
+          <h3 class="title is-3">{{ product.title }}</h3>
+          <h4 class="title is-4">${{ product.price }}</h4>
           <button class="button is-fullwidth">Message Seller</button>
         </div>
+      </div>
+      <div class="description">
+        <h5 class="title is-5">Description</h5>
+        <p>{{ product.description }}</p>
       </div>
       <div class="comments">
         <h5 class="title is-5">Comments ({{ lengthOfComments }})</h5>
@@ -22,16 +26,27 @@
           :comment="comment"
         />
         <div class="modal-wrapper">
-          <h6 v-if="!loggedIn">Please log in to <span @click="logModal = true">ask a question</span></h6>
-          <div v-if="!loggedIn" v-bind:class="{'is-active': logModal}" class="modal">
+          <h6 v-if="!loggedIn">
+            Please log in to
+            <span @click="logModal = true">ask a question</span>
+          </h6>
+          <div
+            v-if="!loggedIn"
+            v-bind:class="{ 'is-active': logModal }"
+            class="modal"
+          >
             <div @click="logModal = false" class="modal-background"></div>
             <div class="modal-content">
               <!-- Any other Bulma elements you want -->
               <div class="box">
-                <login/>
+                <login />
               </div>
             </div>
-            <button @click="logModal = false" class="modal-close is-large" aria-label="close"></button>
+            <button
+              @click="logModal = false"
+              class="modal-close is-large"
+              aria-label="close"
+            ></button>
           </div>
         </div>
         <form v-if="loggedIn" v-on:submit.prevent="checkForm">
@@ -43,7 +58,8 @@
               </p>
             </figure>
             <div class="media-right">
-              <textarea v-bind:class="{'is-danger':errors.length}"
+              <textarea
+                v-bind:class="{ 'is-danger': errors.length }"
                 @keydown="errors = []"
                 v-model="comment.body"
                 class="textarea"
@@ -102,25 +118,7 @@ export default {
         product: null,
         user: null,
         firstname: "",
-        lastname: ""
-      },
-      dummyProduct: {
-        title: "Samsung Galaxy S10+ 128GB G975F Prism Black",
-        price: "10,000",
-        description: `LEARANCE PRICING!
-
-Condition: New
-1-day Warranty: 12 Months
-What's in the Box?
-
-    Samsung Galaxy Smartphone
-    Charging Plug 
-
-The result of 10 years of pioneering mobile firsts, the next generation of Galaxy has arrived - the phone that doesn't just stand out, it stands apart...
-
-The Most Immersive Display Yet: With on-screen security, and a Dynamic AMOLED that's easy on the eyes, there's virtually nothing to get in the way of your viewing. Not even the screen you're viewing it on.
-
-Ultrasonic Fingerprint Security: We've moved security from the back of the phone to the front, fusing the Ultrasonic Fingerprint directly into the screen.`,
+        lastname: "",
       },
     };
   },
@@ -129,7 +127,7 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
       if (this.loggedIn) {
         this.logModal = false;
       }
-    }
+    },
   },
   computed: {
     lengthOfComments: function() {
@@ -157,7 +155,7 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
       this.comment.user = localStorage.username;
       this.comment.firstname = localStorage.firstname;
       this.comment.lastname = localStorage.lastname;
-      console.log(this.comment.firstname)
+      console.log(this.comment.firstname);
       this.$http
         .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
         .then(
@@ -207,7 +205,7 @@ Ultrasonic Fingerprint Security: We've moved security from the back of the phone
       this.loggedIn = localStorage.loggedIn;
       this.id = localStorage.username;
     });
-  }
+  },
 };
 </script>
 
@@ -256,16 +254,20 @@ section {
 
 .details {
   flex: 1;
-  grid-column: 2 / 3;
   padding: 25px;
   & button {
     padding: 25px 0;
   }
 }
 
+.description {
+  width: 66%;
+  padding: 25px 0;
+}
+
 .comments {
   width: 66%;
-  padding: 25px;
+  padding: 25px 0;
 }
 
 .comment {
@@ -294,16 +296,22 @@ section {
 }
 
 .title {
-    margin: 0;
-  }
+  margin: 0;
+}
 
-  .modal-wrapper {
-    margin: 25px 0;
-    & span {
-      color: blue;
-      font-weight: bold;
-    }
+.modal-wrapper {
+  margin: 25px 0;
+  & span {
+    color: #eb9836;
+    font-weight: bold;
   }
+}
+
+.box {
+  flex-basis: 100px;
+  max-width: 400px;
+}
+
 //Mobile
 @media (max-width: 700px) {
   .row-1 {
@@ -319,10 +327,10 @@ section {
     grid-row: 3;
   }
 
-  .details {
-    grid-column: 1 / 3;
-    grid-row: 2;
-  }
+  .description {
+  width: 100%;
+}
+
 
   .comment-valid {
     flex-direction: column;
