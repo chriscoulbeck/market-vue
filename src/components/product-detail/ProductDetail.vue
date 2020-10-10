@@ -9,7 +9,7 @@
         </div>
         <div class="details">
           <h3 class="title is-3">{{ dummyProduct.title }}</h3>
-          <h4 class="title is-4">Product price: {{ dummyProduct.price }}</h4>
+          <h4 class="title is-4">${{ dummyProduct.price }}</h4>
           <button class="button is-fullwidth">Message Seller</button>
         </div>
       </div>
@@ -21,8 +21,8 @@
           v-bind:key="index"
           :comment="comment"
         />
-        <div>
-          <h6 v-if="!loggedIn" @click="logModal = true">Log In</h6>
+        <div class="modal-wrapper">
+          <h6 v-if="!loggedIn">Please log in to <span @click="logModal = true">ask a question</span></h6>
           <div v-if="!loggedIn" v-bind:class="{'is-active': logModal}" class="modal">
             <div @click="logModal = false" class="modal-background"></div>
             <div class="modal-content">
@@ -292,6 +292,18 @@ section {
 .media-right {
   flex: 1;
 }
+
+.title {
+    margin: 0;
+  }
+
+  .modal-wrapper {
+    margin: 25px 0;
+    & span {
+      color: blue;
+      font-weight: bold;
+    }
+  }
 //Mobile
 @media (max-width: 700px) {
   .row-1 {
