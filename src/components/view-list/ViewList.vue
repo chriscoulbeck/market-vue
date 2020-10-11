@@ -16,12 +16,12 @@ import ProductCard from "../product-card/ProductCard";
 
 export default {
   components: {
-    "productCard": ProductCard
+    productCard: ProductCard
   },
-  
+
   data: function() {
     return {
-      products: [],
+      products: []
     };
   },
 
@@ -38,7 +38,6 @@ export default {
     this.getProducts();
   }
 };
-
 </script>
 
 
@@ -47,7 +46,7 @@ export default {
 @import "../../scss/variables.scss";
 
 .hello {
-  margin: 0 10%;;
+  margin: 0 10%;
 }
 
 h1 {
@@ -55,8 +54,8 @@ h1 {
   font-weight: normal;
   font-size: 42px;
   line-height: 52px;
-  margin-top:60px;
-  margin-bottom:40px;
+  margin-top: 60px;
+  margin-bottom: 40px;
 }
 h3 {
   // display:inline;
@@ -117,7 +116,7 @@ button {
   }
   h3 {
     display: flex;
-    justify-content:center;
+    justify-content: center;
   }
 }
 </style>

@@ -40,7 +40,8 @@ export default {
       localStorage.loggedIn = "";
       //Local Storage can only set strings
       this.loggedIn = localStorage.loggedIn;
-      this.$router.push({ path: "/" });
+      EventBus.$emit("$loggedOut");
+
     }
   },
   created() {
@@ -76,7 +77,9 @@ export default {
 }
 
 #app {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: canada-type-gibson, sans-serif;
+  font-style: normal;
+font-weight: 100;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

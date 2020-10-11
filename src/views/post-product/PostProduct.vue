@@ -6,18 +6,18 @@
       <h5>TechHeadsNZ</h5>
     </div>
     <div class="sub-header__img1">
-      <img src="../../assets/images/<.png" alt="">
+      <!-- <img src="../../assets/images/<.png" alt=""> -->
      
-       <img src="../../assets/images/<.png" alt="">
+       <!-- <img src="../../assets/images/<.png" alt=""> -->
  </div>
      <div class="sub-header__myaccount">
 
       <h5>My Account</h5>
      </div>
     <div class="sub-header__img2">
-      <img src="../../assets/images/<.png" alt="">
+      <!-- <img src="../../assets/images/<.png" alt=""> -->
    
-       <img src="../../assets/images/<.png" alt="">
+       <!-- <img src="../../assets/images/<.png" alt=""> -->
     </div>
           <div class="sub-header__titleitem">
       <h5>List an Item</h5>
@@ -42,11 +42,6 @@
          <div class="input-field-price">
         <label for="price">Price</label>
         <input v-model="product.price" type="text" name="price" id="price" />
-      </div>
-
-       <div class="input-field-username">
-        <label for="username">User Name</label>
-        <input v-model="product.username" type="text" name="username" id="username-field" />
       </div>
 
        <div class="input-field-details">
@@ -96,6 +91,7 @@ export default {
       }
     },
     postProduct: function(product) {
+      this.product.username = localStorage.user;
       this.$http.post(`${process.env.VUE_APP_API_URL}products`, product).then(
         (response) => {
           if (response.body) {
