@@ -77,7 +77,9 @@ export default {
 }
 
 #app {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: canada-type-gibson, sans-serif;
+  font-style: normal;
+font-weight: 100;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

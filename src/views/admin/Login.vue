@@ -2,7 +2,7 @@
   <div class="section">
     <div class="container-1">
       <form @submit.prevent="checkForm">
-        <b-field class="test" label="Log in">
+        <b-field :type="errorType" :message="errorMessage" class="test" label="Log in">
           <b-input v-model="user.email" type="email" placeholder="Your email" required></b-input>
         </b-field>
         <b-button expanded tag="input" native-type="submit" type="is-primary" value="Submit input" />
@@ -23,7 +23,9 @@ export default {
         // the email from the input is bound to this property, they are always going to be the same
         email: ""
       },
-      errors: []
+      errors: [],
+      errorType: "",
+      errorMessage: "" 
     };
   },
   methods: {
@@ -33,10 +35,11 @@ export default {
       this.errors = [];
       if (!this.user.email) {
         this.errors.push("Email required");
-      }
+      } 
       // if no errors then log the user in
       if (!this.errors.length) {
         this.loginUser(this.user);
+        console.log(2);
       }
     },
     // this method logs in the user by sending a post request to the api, which responds with the user whose email is submitted if valid
@@ -58,6 +61,8 @@ export default {
         function(response) {
           //error callback
           this.errors.push(response.body);
+          this.errorType = "is-danger";
+          this.errorMessage = "User not found";
         }
       );
     }
