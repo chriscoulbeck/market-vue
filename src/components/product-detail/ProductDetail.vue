@@ -30,11 +30,7 @@
             Please log in to
             <span @click="logModal = true">ask a question</span>
           </h6>
-          <div
-            v-if="!loggedIn"
-            v-bind:class="{ 'is-active': logModal }"
-            class="modal"
-          >
+          <div v-if="!loggedIn" v-bind:class="{ 'is-active': logModal }" class="modal">
             <div @click="logModal = false" class="modal-background"></div>
             <div class="modal-content">
               <!-- Any other Bulma elements you want -->
@@ -42,11 +38,7 @@
                 <login />
               </div>
             </div>
-            <button
-              @click="logModal = false"
-              class="modal-close is-large"
-              aria-label="close"
-            ></button>
+            <button @click="logModal = false" class="modal-close is-large" aria-label="close"></button>
           </div>
         </div>
         <form v-if="loggedIn" v-on:submit.prevent="checkForm">
@@ -57,31 +49,17 @@
                 <img src="https://bulma.io/images/placeholders/128x128.png" />
               </p>
             </figure>
+
             <div class="media-right">
-              <textarea
-                v-bind:class="{ 'is-danger': errors.length }"
-                @keydown="errors = []"
-                v-model="comment.body"
-                class="textarea"
-                placeholder="Add a comment..."
-              ></textarea>
-              <!-- Error  Handling -->
-              <div class="comment-valid">
-                <div class="comment-valid__text" v-if="errors.length">
-                  <ul v-for="(error, index) in errors" v-bind:key="index">
-                    <li class="has-text-danger">{{ error }}</li>
-                  </ul>
-                </div>
-                <div class="comment-valid__text" v-if="!errors.length">
-                  {{ maxLetters - comment.body.length }} characters remaining
-                </div>
-                <!-- Submit -->
-                <input
-                  type="submit"
-                  class="button is-primary"
-                  value="Post Comment"
-                />
-              </div>
+              <b-field label="Comment" :type="errorType" :message="errorMessage">
+                <textarea class="textarea" v-bind:class="{'textarea-type': errorType}"
+                  placeholder="Leave a comment"
+                  v-model="comment.body"
+                  cols="30"
+                  rows="5"
+                ></textarea>
+              </b-field>
+              <input type="submit" class="button is-primary" value="Post Comment" />
             </div>
           </article>
         </form>
@@ -99,15 +77,16 @@ export default {
   name: "ProductDetail",
   components: {
     comment: Comment,
-    login: Login,
+    login: Login
   },
 
   data: function() {
     return {
+      errorType: "",
+      errorMessage: "100 characters remaining",
       canMessage: false,
       logModal: false,
       readOnly: false,
-      maxLetters: 100,
       errors: [],
       loggedIn: "",
       product: {},
@@ -118,8 +97,8 @@ export default {
         product: null,
         user: null,
         firstname: "",
-        lastname: "",
-      },
+        lastname: ""
+      }
     };
   },
   watch: {
@@ -128,21 +107,26 @@ export default {
         this.logModal = false;
       }
     },
+    'comment.body': function() {
+      this.errors = [];
+      this.errorType = "";
+        this.errorMessage = `${100 - this.comment.body.length} characters remaining`;
+    }
   },
   computed: {
     lengthOfComments: function() {
       return this.comments.length;
-    },
-    letterCount: function() {
-      return 100 - this.comment.body.length;
-    },
+    }
   },
   methods: {
+
     checkForm: function(event) {
       event.preventDefault();
       this.errors = [];
       if (!this.comment.body) {
         this.errors.push("Comment required");
+        this.errorType = "is-danger";
+        this.errorMessage = `Please leave a comment`;
       }
       // if no errors then log the user in
       if (!this.errors.length) {
@@ -155,7 +139,6 @@ export default {
       this.comment.user = localStorage.username;
       this.comment.firstname = localStorage.firstname;
       this.comment.lastname = localStorage.lastname;
-      console.log(this.comment.firstname);
       this.$http
         .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
         .then(
@@ -186,7 +169,7 @@ export default {
         .then(function(data) {
           this.comments = data.body;
         });
-    },
+    }
   },
 
   created: function() {
@@ -205,7 +188,7 @@ export default {
       this.loggedIn = localStorage.loggedIn;
       this.id = localStorage.username;
     });
-  },
+  }
 };
 </script>
 
@@ -214,7 +197,7 @@ export default {
 @import "../../scss/bulma";
 
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: canada-type-gibson, sans-serif;
 }
 
 section {
@@ -299,6 +282,10 @@ section {
   margin: 0;
 }
 
+.textarea-type, .textarea-type:hover {
+  border: 1px solid red;
+}
+
 .modal-wrapper {
   margin: 25px 0;
   & span {
@@ -328,9 +315,8 @@ section {
   }
 
   .description {
-  width: 100%;
-}
-
+    width: 100%;
+  }
 
   .comment-valid {
     flex-direction: column;
@@ -339,5 +325,6 @@ section {
   .comments {
     width: 100%;
   }
+
 }
 </style>
