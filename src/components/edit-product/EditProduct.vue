@@ -6,7 +6,7 @@
       <div class="title-flex">
         <!-- Listing title -->
         <label class="title" for="title">Listing title</label>
-        <input v-model="product.title" maxlength="16" placeholder="Samsung Galaxy S7+" type="text" name="title" id="titles" required/>
+        <input v-model="product.title" placeholder="Samsung Galaxy S7+" type="text" name="title" id="titles" required/>
 
         <!-- Listing details -->
         <label class="title" for="details">Product details</label>

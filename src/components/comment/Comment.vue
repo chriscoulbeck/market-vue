@@ -1,14 +1,14 @@
 <template>
   <article class="media">
   <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="https://bulma.io/images/placeholders/128x128.png">
+    <p class="image is-32x32">
+      <img class="img-id" src="https://bulma.io/images/placeholders/128x128.png">
     </p>
   </figure>
   <div class="media-content">
     <div class="content">
       <p>
-        <strong>{{comment.firstname}} {{comment.lastname}}</strong> <small>{{comment.user}}</small> <small>31m</small>
+        <strong>{{comment.user}}</strong> <small>31m</small>
         <br>
         {{comment.body}}
       </p>
@@ -39,5 +39,9 @@ export default {
 p {
   width: 100%;
   overflow-wrap: break-word;
+}
+
+.img-id {
+  border-radius: 50%;
 }
 </style>

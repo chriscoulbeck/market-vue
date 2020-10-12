@@ -2,7 +2,6 @@
   <div>
     <!-- Flexbox -->
     <section>
-      <router-link to="/">Back</router-link>
       <div class="row-1">
         <div class="photo-container">
           <img src="../../assets/images/phone.jpg" />
@@ -26,11 +25,19 @@
           :comment="comment"
         />
         <div class="modal-wrapper">
-          <h6 v-if="!loggedIn">
+          <article v-if="!loggedIn" class="message">
+            <div class="message-body">
+              <h6 v-if="!loggedIn">
             Please log in to
-            <span @click="logModal = true">ask a question</span>
+            <span @click="logModal = true">comment</span>
           </h6>
-          <div v-if="!loggedIn" v-bind:class="{ 'is-active': logModal }" class="modal">
+            </div>
+          </article>
+          <div
+            v-if="!loggedIn"
+            v-bind:class="{ 'is-active': logModal }"
+            class="modal"
+          >
             <div @click="logModal = false" class="modal-background"></div>
             <div class="modal-content">
               <!-- Any other Bulma elements you want -->
@@ -38,28 +45,42 @@
                 <login />
               </div>
             </div>
-            <button @click="logModal = false" class="modal-close is-large" aria-label="close"></button>
+            <button
+              @click="logModal = false"
+              class="modal-close is-large"
+              aria-label="close"
+            ></button>
           </div>
         </div>
         <form v-if="loggedIn" v-on:submit.prevent="checkForm">
           <!-- Input -->
           <article class="media">
-            <figure class="media-left">
+            <figure class="media-left comment-id">
               <p class="image is-64x64">
                 <img src="https://bulma.io/images/placeholders/128x128.png" />
               </p>
             </figure>
 
             <div class="media-right">
-              <b-field label="Comment" :type="errorType" :message="errorMessage">
-                <textarea class="textarea" v-bind:class="{'textarea-type': errorType}"
+              <b-field
+                label="Comment"
+                :type="errorType"
+                :message="errorMessage"
+              >
+                <textarea
+                  class="textarea"
+                  v-bind:class="{ 'textarea-type': errorType }"
                   placeholder="Leave a comment"
                   v-model="comment.body"
                   cols="30"
-                  rows="5"
+                  rows="4"
                 ></textarea>
               </b-field>
-              <input type="submit" class="button is-primary" value="Post Comment" />
+              <input
+                type="submit"
+                class="button is-primary"
+                value="Post Comment"
+              />
             </div>
           </article>
         </form>
@@ -77,7 +98,7 @@ export default {
   name: "ProductDetail",
   components: {
     comment: Comment,
-    login: Login
+    login: Login,
   },
 
   data: function() {
@@ -97,8 +118,8 @@ export default {
         product: null,
         user: null,
         firstname: "",
-        lastname: ""
-      }
+        lastname: "",
+      },
     };
   },
   watch: {
@@ -107,19 +128,19 @@ export default {
         this.logModal = false;
       }
     },
-    'comment.body': function() {
+    "comment.body": function() {
       this.errors = [];
       this.errorType = "";
-        this.errorMessage = `${100 - this.comment.body.length} characters remaining`;
-    }
+      this.errorMessage = `${100 -
+        this.comment.body.length} characters remaining`;
+    },
   },
   computed: {
     lengthOfComments: function() {
       return this.comments.length;
-    }
+    },
   },
   methods: {
-
     checkForm: function(event) {
       event.preventDefault();
       this.errors = [];
@@ -142,14 +163,14 @@ export default {
       this.$http
         .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
         .then(
-          response => {
+          (response) => {
             if (response.body) {
               this.comment.body = "";
               this.getProductById();
               this.getComments();
             }
           },
-          response => {
+          (response) => {
             this.errors.push(response.body.message);
           }
         );
@@ -169,7 +190,7 @@ export default {
         .then(function(data) {
           this.comments = data.body;
         });
-    }
+    },
   },
 
   created: function() {
@@ -188,7 +209,7 @@ export default {
       this.loggedIn = localStorage.loggedIn;
       this.id = localStorage.username;
     });
-  }
+  },
 };
 </script>
 
@@ -201,9 +222,9 @@ export default {
 }
 
 section {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: auto;
-  padding: 1em;
+  padding: 2em;
 }
 
 .not-visible {
@@ -212,6 +233,7 @@ section {
 
 .row-1 {
   @include flex-direction(row);
+  padding: 40px 0;
 }
 
 .error {
@@ -237,7 +259,7 @@ section {
 
 .details {
   flex: 1;
-  padding: 25px;
+  padding: 0 50px;
   & button {
     padding: 25px 0;
   }
@@ -282,12 +304,13 @@ section {
   margin: 0;
 }
 
-.textarea-type, .textarea-type:hover {
+.textarea-type,
+.textarea-type:hover {
   border: 1px solid red;
 }
 
 .modal-wrapper {
-  margin: 25px 0;
+  margin: 50px 0 25px 0;
   & span {
     color: #eb9836;
     font-weight: bold;
@@ -309,6 +332,13 @@ section {
     grid-column: 1 / 3;
   }
 
+  .details {
+  flex: 1;
+  padding-top: 50px;
+}
+
+.comment-id{ display: none;}
+
   .comments {
     grid-column: 1 / 3;
     grid-row: 3;
@@ -326,5 +356,8 @@ section {
     width: 100%;
   }
 
+   .media input {
+    width: 100%;
+  }
 }
 </style>

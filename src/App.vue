@@ -66,12 +66,12 @@ export default {
 }
 
 .navbar-menu {
-  background-color: $primary-shade;
+  background-color: #2a2c2e;
   height: 60px;
 }
 
 .navbar-brand {
-  background-color: $primary-shade;
+  background-color: #2a2c2e;
   height: 60px;
   padding-left: 15px;
 }
@@ -116,7 +116,6 @@ font-weight: 100;
 #nav {
   height: 75px;
   width: 100%;
-  background: $primary;
   display: flex;
   justify-content: space-between;
   align-items: center;
