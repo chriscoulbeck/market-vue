@@ -5,13 +5,9 @@
     flex-direction: $direction;
 }
 
-// Fonts
-    //Primary
-
-
 //Colors
     //Primary
-    $primary: #455a6c;
+    $primary: #343c3f;
     $primary-shade: #204056;
     $primary-tint: #6a7b89;
 
@@ -26,3 +22,21 @@
     $grey: #BCBEC0;
     $darker-grey: #939598;
     $dark-grey: #777777;
+
+// Button 
+@mixin button-primary {
+    background: $secondary;
+    color: $off-white;
+    padding: 20px 25px;
+    border: none;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 2px;
+    font-weight: 200;
+    font-size: 1em;
+    text-transform: uppercase;
+    &:hover {
+        background: $secondary-tint;
+        cursor: pointer;
+    }
+}

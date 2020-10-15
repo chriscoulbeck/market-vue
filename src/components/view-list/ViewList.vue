@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>It's trade time baby.</h1>
-    <h3>All listings</h3>
+    <h3>Featured</h3>
     <ul>
       <div class="category">
         <productCard v-for="(product, index) in products" v-bind:key="index" :product="product" />
@@ -46,7 +46,9 @@ export default {
 @import "../../scss/variables.scss";
 
 .hello {
+  @include flex-direction(column);
   margin: 0 10%;
+  flex-basis: 100px;
 }
 
 h1 {
@@ -59,9 +61,10 @@ h1 {
 }
 h3 {
   // display:inline;
-  font-size: 24px;
-  text-transform: uppercase;
-  border-bottom: 1px solid;
+  font-size: 22px;
+  border-bottom: $grey 1px solid;
+  font-weight: 500;
+  padding-bottom: 5px;
 }
 ul {
   list-style-type: none;
@@ -78,7 +81,7 @@ a {
 .category {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 button {
@@ -110,13 +113,12 @@ button {
     border: none;
   }
   h1 {
-    text-align: center;
     font-size: 34px;
     // padding: 30px;
   }
   h3 {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
 }
 </style>
