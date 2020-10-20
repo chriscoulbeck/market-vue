@@ -21,7 +21,7 @@
       <input id="email" name="email" v-model="user.email" type="email" placeholder="Email">
       <p v-if="errors.length" class="input-error">{{errorMessage}}</p>
     </div>
-    <input type="submit" value="Log In">
+    <input type="submit" value="Register">
     <div class="register-flex">
       <p>Already have an Account?</p>
       <router-link class="router-link register-link" to="/login">Log in</router-link>

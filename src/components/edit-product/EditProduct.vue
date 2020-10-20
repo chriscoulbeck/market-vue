@@ -124,13 +124,16 @@ h4 {
     padding: 10px;
     margin-bottom: 10px;
     font-weight: 400;
-    font-size: 1em;
+    font-size: 14px;
+    line-height: 18px;
   }
 }
 
 input,
 textarea {
   padding: 10px;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .title-wrapper {
@@ -152,7 +155,7 @@ textarea {
 }
 
 input[type="submit"] {
-  width: 200px;
+  width: 150px;
     background: $secondary;
     padding: 15px;
     color: white;
