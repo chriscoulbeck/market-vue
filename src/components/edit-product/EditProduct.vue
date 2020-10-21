@@ -1,28 +1,50 @@
 <template>
-<!-- Update listing -->
+  <!-- Update listing -->
   <div class="title-wrapper">
-    <h2>UPDATE YOUR LISTING DETAILS</h2>
-      <form class="title-form" v-on:submit.prevent="checkForm">
+    <form class="title-form" v-on:submit.prevent="checkForm">
+      <h4>Edit</h4>
       <div class="title-flex">
         <!-- Listing title -->
-        <label class="title" for="title">Listing title</label>
-        <input v-model="product.title" maxlength="16" placeholder="Samsung Galaxy S7+" type="text" name="title" id="titles" required/>
-
-        <!-- Listing details -->
-        <label class="title" for="details">Product details</label>
-        <input v-model="product.details" maxlength="26" type="text" name="details" id="titles" required />
+        <div class="input-field">
+          <label for="title">Listing title</label>
+          <input
+            v-model="product.title"
+            type="text"
+            name="title"
+            id="titles"
+            required
+          />
+        </div>
 
         <!-- Listing description -->
-        <label class="title" for="description"> Description </label>
-        <textarea  v-model="product.description" maxlength="500" type="details" name="description" id="titleD" required >
-        </textarea>
+        <div class="input-field">
+          <label for="description"> Description </label>
+          <textarea
+            v-model="product.description"
+            maxlength="500"
+            rows="5"
+            type="details"
+            name="description"
+            id="titleD"
+            required
+          >
+          </textarea>
+        </div>
 
         <!-- Listing price -->
-        <label class="title" for="price"> Price </label>
-        <input v-model="product.price" maxlength="8" placeholder="$" type="text" name="price" id="titles" />
+        <div class="input-field">
+          <label for="price"> Price </label>
+          <input
+            v-model="product.price"
+            maxlength="8"
+            type="text"
+            name="price"
+            id="titles"
+          />
+        </div>
 
         <!-- Update button -->
-        <button class="update-button">Update</button>
+        <input type="submit" value="Submit" />
       </div>
     </form>
   </div>
@@ -39,7 +61,7 @@ export default {
         details: null,
         location: null,
         date: null,
-      }
+      },
     };
   },
   methods: {
@@ -47,8 +69,13 @@ export default {
       this.errors = [];
       if (!this.product.title) {
         this.errors.push("Title Required");
+      } else if (!this.product.description) {
+        this.errors.push("Title Required");
+      } else if (!this.product.price) {
+        this.errors.push("Title Required");
+      } else {
+        this.editProduct(this.product);
       }
-      this.editProduct(this.product);
     },
     editProduct: function(product) {
       this.$http
@@ -59,7 +86,7 @@ export default {
         .then(function() {
           this.$router.push({ path: "/account" });
         });
-    }
+    },
   },
   created() {
     if (this.$route.params.productId) {
@@ -71,28 +98,52 @@ export default {
           this.product = data.body;
         });
     }
-  }
+  },
 };
 </script>
 
 <style lang="scss">
+@import "../../scss/variables";
 
-h2 {
-  margin-top:20px;
+h4 {
+  margin-top: 20px;
   line-height: 2.7rem;
-  padding: 25px;
-  font-weight: bold;
-  font-size:40px;
+  font-weight: 500;
+  padding-bottom: 15px;
+  font-size: 24px;
+
+}
+
+.input-field {
+  @include flex-direction(column);
+  padding-bottom: 20px;
+  & label {
+    padding-bottom: 10px;
+  }
+  & input {
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+input,
+textarea {
+  padding: 10px;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .title-wrapper {
-  margin: 0 10% 10% 10%;
+  margin: auto;
+  padding: 0 20px;
+  max-width: 500px;
 }
 
 .title-form {
-  background-color: #E6E7E8;
-  padding: 9px;
-  border-radius:6px;
+  border-radius: 6px;
 }
 .title-flex {
   display: flex;
@@ -100,29 +151,21 @@ h2 {
 }
 .title {
   font-size: 24px;
-  margin: 50px 6%;
-  font-weight: bold;
-}
-#titles {
-  margin: 1px 6% !important;
-  padding: 5px;
-}
-#titleD {
-resize: none;
-height: 100px;
-margin: 11px 6%;
-padding: 10px;
+  font-weight: 300;
 }
 
-.update-button {
-  width: 118px;
-  height: 48px;
-  margin: 50px 6%;
-  border: none;
-  padding: 5px;
-  background-color: #EB9836;
-  color: #f6f6f6;
-  border-radius: 3px;
-  font-size: 20px;
+input[type="submit"] {
+  width: 150px;
+    background: $secondary;
+    padding: 15px;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    &:hover {
+      background: $secondary-tint;
+      cursor: pointer;
+    }
 }
 </style>

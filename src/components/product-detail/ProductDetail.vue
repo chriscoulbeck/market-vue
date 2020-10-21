@@ -1,70 +1,47 @@
 <template>
-  <div>
-    <!-- Flexbox -->
-    <section>
-      <router-link to="/">Back</router-link>
-      <div class="row-1">
-        <div class="photo-container">
-          <img src="../../assets/images/phone.jpg" />
-        </div>
-        <div class="details">
-          <h3 class="title is-3">{{ product.title }}</h3>
-          <h4 class="title is-4">${{ product.price }}</h4>
-          <button class="button is-fullwidth">Message Seller</button>
-        </div>
+  <div class="container" v-bind:class="{fixed: modal}">
+    <div class="photo-wrapper">
+      <img src="../../assets/images/phone.jpg" />
+    </div>
+    <div class="col-2">
+      <h3>{{ product.title }}</h3>
+      <div class="category-links">
+        <a href="#">Mobile Phones</a>
+        <a href="#">Samsung</a>
       </div>
+      <h3 class="product-price">${{ product.price }}</h3>
       <div class="description">
-        <h5 class="title is-5">Description</h5>
+        <h4>Description</h4>
         <p>{{ product.description }}</p>
       </div>
-      <div class="comments">
-        <h5 class="title is-5">Comments ({{ lengthOfComments }})</h5>
-        <comment
-          class="comment"
-          v-for="(comment, index) in comments"
-          v-bind:key="index"
-          :comment="comment"
-        />
-        <div class="modal-wrapper">
-          <h6 v-if="!loggedIn">
-            Please log in to
-            <span @click="logModal = true">ask a question</span>
-          </h6>
-          <div v-if="!loggedIn" v-bind:class="{ 'is-active': logModal }" class="modal">
-            <div @click="logModal = false" class="modal-background"></div>
-            <div class="modal-content">
-              <!-- Any other Bulma elements you want -->
-              <div class="box">
-                <login />
-              </div>
-            </div>
-            <button @click="logModal = false" class="modal-close is-large" aria-label="close"></button>
+    </div>
+    <div class="comments">
+      <h4>Comments ({{lengthOfComments}})</h4>
+      <comment
+        v-for="(comment, index) in comments"
+        :key="index"
+        :comment="comment"
+      />
+      <p class="log-in-tip" v-if="!loggedIn" @click="modal = true">Login to leave a comment</p>
+      <div v-bind:class="{'is-hidden': !modal}" class="comment-box-modal">
+          <div class="modal-content">
+            <login class="login"/>
           </div>
         </div>
-        <form v-if="loggedIn" v-on:submit.prevent="checkForm">
-          <!-- Input -->
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/128x128.png" />
-              </p>
-            </figure>
-
-            <div class="media-right">
-              <b-field label="Comment" :type="errorType" :message="errorMessage">
-                <textarea class="textarea" v-bind:class="{'textarea-type': errorType}"
-                  placeholder="Leave a comment"
-                  v-model="comment.body"
-                  cols="30"
-                  rows="5"
-                ></textarea>
-              </b-field>
-              <input type="submit" class="button is-primary" value="Post Comment" />
-            </div>
-          </article>
+      <div v-if="loggedIn" class="comment-box-container">
+        <form @submit.prevent="checkForm">
+          <div class="comment-box">
+            <textarea
+              v-model="comment.body"
+              maxlength="100"
+              placeholder="Write a comment..."
+            ></textarea>
+            <p v-bind:class="{'comment-box-error': errorMessage == 'This field is required'}">{{errorMessage}}</p>
+          </div>
+          <input type="submit" value="Submit" />
         </form>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
@@ -77,16 +54,14 @@ export default {
   name: "ProductDetail",
   components: {
     comment: Comment,
-    login: Login
+    login: Login,
   },
 
   data: function() {
     return {
       errorType: "",
       errorMessage: "100 characters remaining",
-      canMessage: false,
-      logModal: false,
-      readOnly: false,
+      modal: false,
       errors: [],
       loggedIn: "",
       product: {},
@@ -97,36 +72,30 @@ export default {
         product: null,
         user: null,
         firstname: "",
-        lastname: ""
-      }
+        lastname: "",
+      },
     };
   },
   watch: {
-    loggedIn: function() {
-      if (this.loggedIn) {
-        this.logModal = false;
-      }
-    },
-    'comment.body': function() {
+    "comment.body": function() {
       this.errors = [];
       this.errorType = "";
-        this.errorMessage = `${100 - this.comment.body.length} characters remaining`;
-    }
+      this.errorMessage = `${100 -
+        this.comment.body.length} characters remaining`;
+    },
   },
   computed: {
     lengthOfComments: function() {
       return this.comments.length;
-    }
+    },
   },
   methods: {
-
     checkForm: function(event) {
       event.preventDefault();
       this.errors = [];
       if (!this.comment.body) {
         this.errors.push("Comment required");
-        this.errorType = "is-danger";
-        this.errorMessage = `Please leave a comment`;
+        this.errorMessage = `This field is required`;
       }
       // if no errors then log the user in
       if (!this.errors.length) {
@@ -142,14 +111,14 @@ export default {
       this.$http
         .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
         .then(
-          response => {
+          (response) => {
             if (response.body) {
               this.comment.body = "";
               this.getProductById();
               this.getComments();
             }
           },
-          response => {
+          (response) => {
             this.errors.push(response.body.message);
           }
         );
@@ -169,7 +138,7 @@ export default {
         .then(function(data) {
           this.comments = data.body;
         });
-    }
+    },
   },
 
   created: function() {
@@ -182,149 +151,208 @@ export default {
       localStorage.loggedIn = "yes";
       this.loggedIn = localStorage.loggedIn;
       this.id = localStorage.username;
+      this.modal = false;
     });
     EventBus.$on("$loggedOut", () => {
       localStorage.loggedIn = "";
       this.loggedIn = localStorage.loggedIn;
       this.id = localStorage.username;
     });
-  }
+  },
 };
 </script>
 
 <style lang="scss">
 @import "../../scss/variables";
-@import "../../scss/bulma";
 
-* {
-  font-family: canada-type-gibson, sans-serif;
+p {
+  line-height: 24px;
+}
+body {
+  background: rgb(250, 250, 250);
+  font-size: 14px;
 }
 
-section {
-  max-width: 1200px;
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto auto;
+  max-width: 1150px;
   margin: auto;
-  padding: 1em;
+  padding: 0 20px 50px 20px;
 }
 
-.not-visible {
-  display: none;
+.product-price {
+  margin-bottom: 10px;
 }
 
-.row-1 {
-  @include flex-direction(row);
+.log-in-tip {
+  padding: 20px 0;
+  cursor: pointer;
 }
 
-.error {
-  font-size: 1em;
-  color: #f14668;
-}
-
-.box {
-  width: 50%;
-  margin: auto;
-}
-
-.photo-container {
+.comment-box-modal {
   @include flex-direction(row);
   justify-content: center;
-  background: $off-white;
-  flex: 2;
-  & img {
-    height: 100%;
-    object-fit: cover;
-  }
+  align-items: center;
+  background: rgba(0, 0, 0, 0.26);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
-.details {
-  flex: 1;
-  padding: 25px;
-  & button {
-    padding: 25px 0;
-  }
+.modal-content {
+  position: fixed;
+  z-index: 100;
 }
 
-.description {
-  width: 66%;
+.screen-lock {
+  position: fixed;
+}
+
+input[type="submit"] {
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  border-radius: 3px;
+  background: $secondary;
+  color: white;
   padding: 25px 0;
+  width: 150px;
+  &:hover {
+    background: $secondary-tint;
+    cursor: pointer;
+  }
 }
 
 .comments {
-  width: 66%;
-  padding: 25px 0;
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0 25px;
+  & h4 {
+    font-weight: 500;
+    padding-bottom: 20px;
+  }
 }
 
-.comment {
+.login {
+  background: white;
+  margin: 0 20px;
+}
+
+.comment-input {
+  @include flex-direction(column);
   width: 100%;
 }
 
-.comment-valid {
-  @include flex-direction(row);
-  justify-content: space-between;
-  margin-top: 10px;
-  &__text {
-    margin: 5px 0;
+.comment-box {
+  padding: 10px 0;
+  &-container {
+    padding: 10px 0;
+    & input[type="submit"] {
+    padding: 10px;
+    &:hover {
+      cursor: pointer;
+    }
   }
+  }
+  &-error {
+    color: rgb(240, 99, 99);;
+  }
+}
+
+.is-hidden{
+  display: none;
+}
+
+.comment-box-container {
   & input[type="submit"] {
-    margin: 5px 0;
+    padding: 10px;
   }
 }
 
-.media {
+textarea {
+  padding: 10px;
+  font-family: lato;
+  font-size: 1em;
+  border-radius: 2px;
+  border-style: solid;
+  width: 100%;
+}
+
+.photo-wrapper {
   @include flex-direction(row);
-  margin-top: 25px;
-}
-
-.media-right {
-  flex: 1;
-}
-
-.title {
-  margin: 0;
-}
-
-.textarea-type, .textarea-type:hover {
-  border: 1px solid red;
-}
-
-.modal-wrapper {
-  margin: 25px 0;
-  & span {
-    color: #eb9836;
-    font-weight: bold;
+  grid-column: 1;
+  justify-content: center;
+  background: $off-white;
+  border: 1px solid $grey;
+  margin: 0 25px 50px 25px;
+  height: 500px;
+  & img {
+    width: 100%;
+    object-fit: contain;
   }
 }
 
-.box {
-  flex-basis: 100px;
-  max-width: 400px;
+.col-2 {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  margin: 0 25px;
+  & h3 {
+    font-weight: 500;
+    padding-bottom: 10px;
+  }
+}
+
+.category-links {
+  padding-bottom: 20px;
+  & a {
+    margin-right: 10px;
+  }
+}
+
+h3 {
+  font-size: 2em;
+}
+
+h4 {
+  font-size: 1.4em;
+}
+
+.description {
+  width: 100%;
+  padding-bottom: 25px;
+  & h4 {
+    font-weight: 500;
+    padding-bottom: 10px;
+  }
 }
 
 //Mobile
-@media (max-width: 700px) {
-  .row-1 {
-    flex-direction: column;
-  }
-
-  .photo-container {
+@media (max-width: 1000px) {
+  .photo-wrapper {
     grid-column: 1 / 3;
   }
 
-  .comments {
+  .col-2 {
+    grid-row: 2;
     grid-column: 1 / 3;
-    grid-row: 3;
+  }
+
+  .details {
+    flex: 1;
+    padding-top: 50px;
   }
 
   .description {
     width: 100%;
   }
 
-  .comment-valid {
-    flex-direction: column;
-  }
-
   .comments {
-    width: 100%;
+    grid-column: 1 / 3;
+    grid-row: 3;
   }
-
 }
 </style>

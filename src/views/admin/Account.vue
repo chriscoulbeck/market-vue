@@ -1,23 +1,31 @@
 <template>
-  <div class="edit-wrapper">
-    <h2>Edit posts</h2>
-    <ul>
-      <!-- Activity / Title -->
-      <div class="product" v-for="(product, index) in products" v-bind:key="index">
-        <li class="edit-active">{{product.active}}</li>
-        <li class="edit-title">{{product.title}}</li>
-
-        <!-- EDIT BUTTON -->
-        <div class="product-edit">
-          <router-link
-            class="product-edit__edit"
-            v-bind:to="{ name: 'Edit', params: { productId: product._id} }"
-          >Edit</router-link>
-          <a href class="product-edit__delete-icon" v-on:click.prevent="deleteProduct(product._id)">Delete</a>
+  <div>
+    <div class="edit-wrapper">
+      <h2>Your Items</h2>
+      <ul>
+        <!-- Activity / Title -->
+        <div
+          class="product"
+          v-for="(product, index) in products"
+          v-bind:key="index"
+        >
+          <li class="product-title">{{ product.title }}</li>
+          <div class="product-links">
+            <router-link
+              class="product-link"
+              v-bind:to="{ name: 'Edit', params: { productId: product._id } }"
+              >Edit</router-link
+            >
+            <a
+              href
+              class="product-link"
+              v-on:click.prevent="deleteProduct(product._id)"
+              >Delete</a
+            >
+          </div>
         </div>
-
-      </div>
-    </ul>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -26,16 +34,16 @@ export default {
   data() {
     return {
       products: [],
-      loggedIn: ""
+      loggedIn: "",
     };
   },
   methods: {
     deleteProduct: function(productId) {
       this.$http
-      .delete(`${process.env.VUE_APP_API_URL}products/${productId}`)
-      .then(function() {
-        this.getProducts();
-      });
+        .delete(`${process.env.VUE_APP_API_URL}products/${productId}`)
+        .then(function() {
+          this.getProducts();
+        });
     },
 
     getProducts: function() {
@@ -46,72 +54,71 @@ export default {
         .then(function(data) {
           this.products = data.body;
         });
-    }
+    },
   },
   created() {
     this.getProducts();
     this.loggedIn = localStorage.loggedIn;
     if (!this.loggedIn) {
-      this.$router.push({ path: "/login" })
+      this.$router.push({ path: "/login" });
     }
-  }
+  },
 };
 </script>
 
 <style lang="scss">
+@import "../../scss/variables";
 
 h2 {
-  padding: 25px;
-  font-weight: bold;
-  font-size:40px;
+  font-weight: 500;
+}
+
+.product-links {
+  @include flex-direction(row);
+}
+
+.product-link {
+  margin-left: 20px;
+  &:hover {
+    color: $secondary;
+    text-decoration: underline;
+  }
 }
 
 .edit-wrapper {
-  margin: 5% 10% 10% 10%;
+  margin: auto;
+  padding: 0 20px;
+  max-width: 800px;
 }
-.edit-active {
-  margin-right:15px;
-  color: #EB9836 ;
+
+.product-title {
+  margin-right: 15px;
+  font-size: 20px;
 }
-.edit-title {
-  margin-right:15px;
+
+.banner {
+  background: grey;
 }
 
 .product {
-  display: flex;
+  @include flex-direction(row);
+  justify-content: space-between;
   width: 100%;
-  background-color: #E3E3E3;
   margin-top: 10px;
-  padding: 9px;
-  border-radius:3px;
+  padding: 9px 0;
+  border-radius: 3px;
+  border-bottom: 1px solid $grey;
 }
-.product-edit {
-    display: flex;
-    position:absolute;
-    right: 12%;
-    color:#EB9836;
 
-  &__edit {
-
-  }
-
-  &__delete-icon {
-    margin-left: 10px;
-  }
-}
-.router-link2 {
-  position:absolute;
-  left: 81.5%;
-  color: #333;
-}
-.router-link3 {
-  position:absolute;
-  left: 85%;
-  color: #333;
-}
 li {
   list-style: none;
 }
 
-
+@media (max-width: 700px) {
+  .product-links {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
 </style>
