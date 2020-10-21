@@ -106,7 +106,12 @@ export default {
   align-items: flex-start;
   & p {
     margin-right: 10px;
+    font-size: 16px;
   }
+}
+
+.router-link {
+  font-size: 16px;
 }
 
 h2 {

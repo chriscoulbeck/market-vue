@@ -125,7 +125,12 @@ export default {
   justify-content: flex-start;
   & p {
     margin-right: 10px;
+    font-size: 16x;
   }
+}
+
+.router-link {
+  font-size: 16px;
 }
 
 h2 {
