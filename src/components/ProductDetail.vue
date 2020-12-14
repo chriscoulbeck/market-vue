@@ -1,7 +1,7 @@
 <template>
   <div class="container" v-bind:class="{fixed: modal}">
     <div class="photo-wrapper">
-      <img src="../../assets/images/phone.jpg" />
+      <!-- <img src="../../assets/images/phone.jpg" /> -->
     </div>
     <div class="col-2">
       <h3>{{ product.title }}</h3>
@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import Comment from "../comment/Comment";
-import Login from "../../views/admin/Login";
-import EventBus from "../../eventBus";
+// import Comment from "../comment/Comment";
+import Login from "../views/admin/Login";
+import EventBus from "../eventBus";
 
 export default {
   name: "ProductDetail",
@@ -102,27 +102,27 @@ export default {
         this.postComment(this.comment);
       }
     },
-    postComment: function(comment) {
-      const id = this.$route.params.productId;
-      this.comment.product = id;
-      this.comment.user = localStorage.username;
-      this.comment.firstname = localStorage.firstname;
-      this.comment.lastname = localStorage.lastname;
-      this.$http
-        .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
-        .then(
-          (response) => {
-            if (response.body) {
-              this.comment.body = "";
-              this.getProductById();
-              this.getComments();
-            }
-          },
-          (response) => {
-            this.errors.push(response.body.message);
-          }
-        );
-    },
+    // postComment: function(comment) {
+    //   const id = this.$route.params.productId;
+    //   this.comment.product = id;
+    //   this.comment.user = localStorage.username;
+    //   this.comment.firstname = localStorage.firstname;
+    //   this.comment.lastname = localStorage.lastname;
+    //   this.$http
+    //     .post(`${process.env.VUE_APP_API_URL}products/${id}/comments`, comment)
+    //     .then(
+    //       (response) => {
+    //         if (response.body) {
+    //           this.comment.body = "";
+    //           this.getProductById();
+    //           this.getComments();
+    //         }
+    //       },
+    //       (response) => {
+    //         this.errors.push(response.body.message);
+    //       }
+    //     );
+    // },
     getProductById: function() {
       const id = this.$route.params.productId;
       this.$http
@@ -131,14 +131,14 @@ export default {
           this.product = data.body;
         });
     },
-    getComments: function() {
-      const id = this.$route.params.productId;
-      this.$http
-        .get(`${process.env.VUE_APP_API_URL}products/${id}/comments`)
-        .then(function(data) {
-          this.comments = data.body;
-        });
-    },
+    // getComments: function() {
+    //   const id = this.$route.params.productId;
+    //   this.$http
+    //     .get(`${process.env.VUE_APP_API_URL}products/${id}/comments`)
+    //     .then(function(data) {
+    //       this.comments = data.body;
+    //     });
+    // },
   },
 
   created: function() {
@@ -163,7 +163,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../scss/variables";
+@import "../scss/variables";
 
 p {
   line-height: 24px;

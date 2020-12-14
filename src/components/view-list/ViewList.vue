@@ -1,14 +1,9 @@
 <template>
-  <div class="hello">
-    <h1>It's trade time baby.</h1>
-    <h3>Featured</h3>
+
+
     <ul>
-      <div class="category">
-        <productCard v-for="(product, index) in products" v-bind:key="index" :product="product" />
-      </div>
+      <productCard v-for="(product, index) in products" v-bind:key="index" :product="product" />
     </ul>
-    <!-- <button class="allButton">SEE MORE</button> -->
-  </div>
 </template>
 
 <script>
@@ -45,80 +40,6 @@ export default {
 <style scoped lang="scss">
 @import "../../scss/variables.scss";
 
-.hello {
-  @include flex-direction(column);
-  margin: 0 10%;
-  flex-basis: 100px;
-}
 
-h1 {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 42px;
-  line-height: 52px;
-  margin-top: 60px;
-  margin-bottom: 40px;
-}
-h3 {
-  // display:inline;
-  font-size: 22px;
-  border-bottom: $grey 1px solid;
-  font-weight: 500;
-  padding-bottom: 5px;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 
-.category {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-button {
-  color: #f2f2f2;
-  background-color: #333;
-  padding: 15px;
-  border: none;
-}
-
-@media only screen and (max-width: 1150px) {
-  .category {
-    display: flex;
-  }
-}
-
-@media only screen and (max-width: 1028px) {
-  .category {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin: 0;
-  }
-
-  button {
-    color: #f2f2f2;
-    background-color: #333;
-    padding: 15px;
-    margin-bottom: 60px;
-    border: none;
-  }
-  h1 {
-    font-size: 34px;
-    // padding: 30px;
-  }
-  h3 {
-    display: flex;
-    justify-content: flex-start;
-  }
-}
 </style>
